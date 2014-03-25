@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<!-- <include file="struts-default.xml"/>-->
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="false" />
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.custom.i18n.resources" value="messageResouce" />
+	<!-- <constant name="struts.multipart.saveDir" value="/data" />-->
+	<constant name="struts.multipart.maxSize" value="20000000" />
+
+	<package name="web" extends="struts-default" >       
+		
+		<!-- User -->
+		<action name="Login" class="loginAction">
+    		<result type="redirectAction" >dashboard</result>
+    		<result name="input">/Login.jsp</result>
+		</action>
+		
+		<action name="Logout" class="uts.codesale.action.LogoutAction">
+  			<result>/Logout.jsp</result>
+		</action>
+		
+		<action name="Register" class="userManager">
+			<result>/user/addUser.jsp</result>
+			<result name="input" type="redirectAction">dashboard</result>
+			<!-- <result>/user/addUser.jsp</result>-->
+    		<!-- <result>/Register.jsp</result>  -->
+		</action>
+		
+		<action name="Register_submit" class="register">
+    		<result type="redirectAction">userList</result>
+    		<result name="input">/user/addUser.jsp</result>
+    		<result name="Login" type="redirectAction">dashboard</result>
+			<!-- <result name="input">/user/addUser.jsp</result>-->
+    		<!-- <result name="input">/Register.jsp</result>  -->
+		</action>
+		
+		<action name="userList" method="userList" class="userManager">
+    		<result>/user/userList.jsp</result>
+    		<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="userDisplay" method="userDisplay" class="userManager">
+    		<result>/user/userDisplay.jsp</result>
+    		<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="changePassword" method="changePassword" class="userManager">
+    		<result>/user/changePassword.jsp</result>
+    		<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="changePasswordSubmit" method="changePasswordSubmit" class="userManagerSubmit">
+    		<result>/user/changePassword.jsp</result>
+    		<result name="input">/user/changePassword.jsp</result>
+    		<result name="Login" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="general" class="userManager">
+    		<result>/user/userInfo.jsp</result>
+    		<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		<action name="dashboard" method="listAll" class="addAndListAlgorithm">
+  			<result>/index.jsp</result>
+  			<result name="input">/Login.jsp</result>
+		</action>
+		<action name="payment" class="uts.codesale.action.PaymentAction">
+  			<result>/payment.jsp</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<!-- Algorithm -->
+		<action name="submission_new" class="addAndListAlgorithm">
+  			<result>/algorithm/newAlgorithm.jsp</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="addAlgorithm" method="add" class="addAndListAlgorithm">
+		
+			<interceptor-ref name="exception"/>
+            <interceptor-ref name="i18n"/>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <interceptor-ref name="fileUpload">
+            	<param name="maximumSize">25000000</param>
+            </interceptor-ref>
+  			<result type="redirectAction">dashboard</result>
+  			<result name="input">/algorithm/newAlgorithm.jsp</result>
+  			<result name="Login" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="alg_display" method="displayAlgorithm" class="addAndListAlgorithm">
+  			<result>/algorithm/algorithmDisplay_admin.jsp</result>
+  			<!-- <result>/algorithm/algorithmDisplay.jsp</result> -->
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="display_revise" method="displayAlgorithm" class="addAndListAlgorithm">
+  			<result>/algorithm/algorithmDisplay_revise.jsp</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="display_publish" method="displayAlgorithm" class="addAndListAlgorithm">
+  			<result>/algorithm/algorithmDisplay_publish.jsp</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="display" method="displayAlgorithm" class="addAndListAlgorithm">
+  			<result>/algorithm/algorithmDisplay_user.jsp</result>
+  			<!-- <result>/algorithm/algorithmDisplay.jsp</result> -->
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="editAlgorithm" method="edit" class="editAlgorithm">
+  			<result>/algorithm/editAlgorithm.jsp</result>
+  			<!-- <result>/algorithm/algorithmDisplay.jsp</result> -->
+  			<result name="input" >error.jsp</result>
+  			<result name="Login" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="publishAlgorithm" method="publish" class="editAlgorithm">
+  			<result>/algorithm/algorithmDisplay_publish.jsp</result>
+  			<result name="input" >error.jsp</result>
+  			<result name="Login" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="editAlgorithm_submit" method="edit_submit" class="editAlgorithm">
+  			<result>/algorithm/algorithmDisplay_user.jsp</result>
+  			<result name="input" >/algorithm/editAlgorithm.jsp</result>
+  			<result name="Login" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="algAdminRst" method="editAdminResult" class="editAlgorithm">
+  			<result type="redirectAction">dashboard</result>
+  			<!-- <result>/algorithm/algorithmDisplay.jsp</result> -->
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="relatedFile" method="executeFile" class="addAndListAlgorithm">
+            <result name="success" type="stream">
+                <param name="contentType">application/octet-stream</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">attachment;filename="${fileName}"</param>
+                <param name="bufferSize">4096</param>
+            </result>
+            <result name="input" type="redirectAction">dashboard</result>
+            <result name="noFile">/error.jsp</result>
+        </action>
+		
+		<!-- Review -->
+		<action name="review" method="agl_reviewList" class="reviewAction">
+  			<result>/review/reviewList.jsp</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+
+		<action name="review_display_add" method="displayReview_add" class="reviewAction">
+  			<result>/review/review_add.jsp</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		<action name="review_add" method="review_add" class="reviewAction">
+  			<result type="redirectAction">dashboard</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		<action name="review_delete" method="review_delete" class="reviewAction">
+  			<result>/review/review_ongoing.jsp</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="review_display_edit" method="displayReview_edit" class="reviewAction">
+  			<result>/review/review_edit.jsp</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		<action name="review_edit" method="review_edit" class="reviewAction">
+            <interceptor-ref name="i18n"/>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <interceptor-ref name="fileUpload">
+            	<param name="maximumSize">25000000</param>
+            </interceptor-ref>
+  			<result type="redirectAction">dashboard</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="review_ongoing" method="review_ongoing" class="reviewAction">
+  			<result>/review/review_ongoing.jsp</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="review_done" method="review_done" class="reviewAction">
+  			<result>/review/review_done.jsp</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="review_done_submit" method="review_done_submit" class="reviewAction">
+  			<result type="redirectAction">dashboard</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<!-- Testing -->
+		<action name="test" method="agl_testingList" class="testingAction">
+  			<result >/testing/testingList.jsp</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="test_display_add" method="displayTesting_add" class="testingAction">
+  			<result>/testing/testing_add.jsp</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="test_display_edit" method="displayTesting_edit" class="testingAction">
+  			<result>/testing/testing_edit.jsp</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="test_add" method="testing_add" class="testingAction">
+  			<result type="redirectAction">dashboard</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="test_delete" method="testing_delete" class="testingAction">
+  			<result >/testing/testing_ongoing.jsp</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="test_edit" method="testing_edit" class="testingAction">
+			<interceptor-ref name="exception"/>
+            <interceptor-ref name="i18n"/>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <interceptor-ref name="fileUpload">
+            	<param name="maximumSize">25000000</param>
+            </interceptor-ref>
+  			<result type="redirectAction">dashboard</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="test_ongoing" method="testing_ongoing" class="testingAction">
+  			<result >/testing/testing_ongoing.jsp</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="test_done" method="testing_done" class="testingAction">
+  			<result >/testing/testing_done.jsp</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="test_done_submit" method="testing_done_submit" class="testingAction">
+  			<result type="redirectAction">dashboard</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+    </package>
+</struts>

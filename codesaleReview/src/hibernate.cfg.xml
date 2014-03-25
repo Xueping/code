@@ -1,0 +1,21 @@
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+<session-factory>
+	<property name="show_sql">true</property>
+	<property name="connection.useUnicode">true</property>
+	<property name="connection.characterEncoding">UTF-8</property>
+	<property name="hbm2ddl.auto">update</property>
+	
+	<mapping class="uts.codesale.beans.User" />
+	<mapping class="uts.codesale.beans.Algorithm" />
+	<mapping class="uts.codesale.beans.AlgorithmBKP" />
+	<mapping class="uts.codesale.beans.Lookup" />
+	<mapping class="uts.codesale.beans.Review" />
+	<mapping class="uts.codesale.beans.Testing" />
+	
+	
+</session-factory>
+</hibernate-configuration>
