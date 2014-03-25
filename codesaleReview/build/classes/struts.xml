@@ -18,11 +18,11 @@
 		<!-- User -->
 		<action name="Login" class="loginAction">
     		<result type="redirectAction" >dashboard</result>
-    		<result name="input">/Login.jsp</result>
+    		<result name="input">/login.jsp</result>
 		</action>
 		
 		<action name="Logout" class="uts.codesale.action.LogoutAction">
-  			<result>/Logout.jsp</result>
+  			<result>/logout.jsp</result>
 		</action>
 		
 		<action name="Register" class="userManager">
@@ -67,7 +67,7 @@
 		</action>
 		<action name="dashboard" method="listAll" class="addAndListAlgorithm">
   			<result>/index.jsp</result>
-  			<result name="input">/Login.jsp</result>
+  			<result name="input">/login.jsp</result>
 		</action>
 		<action name="payment" class="uts.codesale.action.PaymentAction">
   			<result>/payment.jsp</result>
