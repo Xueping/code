@@ -47,6 +47,8 @@ public class User extends AGenericObject implements Serializable {
 	private Set<Review> reviews = new HashSet<Review>();
 	private Set<Testing> testings = new HashSet<Testing>();
 	private String disable;
+	private Set<Community> communities_user = new HashSet<Community>();
+	private Set<Community> communities_admin = new HashSet<Community>();
 
 	public User() {
 	}
@@ -283,6 +285,24 @@ public class User extends AGenericObject implements Serializable {
 
 	public void setDisable(String disable) {
 		this.disable = disable;
+	}
+
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "users", targetEntity = Community.class)
+	public Set<Community> getCommunities_user() {
+		return communities_user;
+	}
+
+	public void setCommunities_user(Set<Community> communities_user) {
+		this.communities_user = communities_user;
+	}
+
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "users", targetEntity = Community.class)
+	public Set<Community> getCommunities_admin() {
+		return communities_admin;
+	}
+
+	public void setCommunities_admin(Set<Community> communities_admin) {
+		this.communities_admin = communities_admin;
 	}
 	
 }

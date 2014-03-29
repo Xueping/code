@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -55,6 +56,7 @@ public class Algorithm extends AGenericObject implements Serializable {
 	protected String author_comment;
 	protected Set<User> users = new HashSet<User>();
 	private Set<Review> reviews = new HashSet<Review>();
+	private Community community;
 	private Review review;
 	private Testing testing;
 	private Set<Testing> testings = new HashSet<Testing>();
@@ -387,6 +389,16 @@ public class Algorithm extends AGenericObject implements Serializable {
 
 	public void setDisable(String disable) {
 		this.disable = disable;
+	}
+
+	@ManyToOne(targetEntity = Community.class,fetch = FetchType.LAZY)
+	@JoinColumn(name = "comm_ID", nullable = false)
+	public Community getCommunity() {
+		return community;
+	}
+
+	public void setCommunity(Community community) {
+		this.community = community;
 	}
 
 }
