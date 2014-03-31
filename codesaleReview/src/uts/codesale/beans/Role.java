@@ -13,28 +13,22 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import uts.codesale.commons.AGenericObject;
 
 @Entity
-@Table(name = "community")
-public class Community extends AGenericObject implements Serializable {
-
+@Table(name = "role")
+public class Role extends AGenericObject implements Serializable{
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3382524371709543864L;
+	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String name;
 	private String description;
 	private Set<User> users = new HashSet<User>();
-	private Set<User> admins = new HashSet<User>();
-	private Set<Algorithm> algorithms = new HashSet<Algorithm>();
-	
-	
-	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -66,7 +60,7 @@ public class Community extends AGenericObject implements Serializable {
 
 	@ManyToMany(targetEntity = User.class, fetch = FetchType.LAZY)
 	// cascade= {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(name = "userCommunity", joinColumns = { @JoinColumn(name = "comm_id") }, inverseJoinColumns = @JoinColumn(name = "user_id"))
+	@JoinTable(name = "userRole", joinColumns = { @JoinColumn(name = "role_id") }, inverseJoinColumns = @JoinColumn(name = "user_id"))
 	public Set<User> getUsers() {
 		return users;
 	}
@@ -75,25 +69,7 @@ public class Community extends AGenericObject implements Serializable {
 		this.users = users;
 	}
 
-	@ManyToMany(targetEntity = User.class, fetch = FetchType.LAZY)
-	// cascade= {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(name = "adminCommunity", joinColumns = { @JoinColumn(name = "comm_id") }, inverseJoinColumns = @JoinColumn(name = "user_id"))
-	public Set<User> getAdmins() {
-		return admins;
-	}
 
-	public void setAdmins(Set<User> admins) {
-		this.admins = admins;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY,targetEntity = Algorithm.class)
-	public Set<Algorithm> getAlgorithms() {
-		return algorithms;
-	}
-
-	public void setAlgorithms(Set<Algorithm> algorithms) {
-		this.algorithms = algorithms;
-	}
 
 	@Override
 	public String toString() {
