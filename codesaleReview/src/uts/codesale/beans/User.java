@@ -49,6 +49,7 @@ public class User extends AGenericObject implements Serializable {
 	private String disable;
 	private Set<Community> communities_user = new HashSet<Community>();
 	private Set<Community> communities_admin = new HashSet<Community>();
+	private Set<Role> roles = new HashSet<Role>();
 
 	public User() {
 	}
@@ -303,6 +304,15 @@ public class User extends AGenericObject implements Serializable {
 
 	public void setCommunities_admin(Set<Community> communities_admin) {
 		this.communities_admin = communities_admin;
+	}
+
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "users", targetEntity = Role.class)
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 	
 }

@@ -15,7 +15,8 @@
 	<mapping class="uts.codesale.beans.Lookup" />
 	<mapping class="uts.codesale.beans.Review" />
 	<mapping class="uts.codesale.beans.Testing" />
-	
+	<mapping class="uts.codesale.beans.Community" />
+	<mapping class="uts.codesale.beans.Role" />
 	
 </session-factory>
 </hibernate-configuration>
