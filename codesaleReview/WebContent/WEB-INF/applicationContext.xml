@@ -78,6 +78,7 @@
         		<value>reviewService</value>
         		<value>testingService</value>
         		<value>algBKPService</value>
+        		<value>roleService</value>
         	</list>
         </property>
 
@@ -124,6 +125,13 @@
     </bean>
     <bean id="testingService" class="uts.codesale.service.impl.TestingServiceImpl">
         <constructor-arg ref="testingDao"/>
+    </bean>
+    
+    <bean id="roleDao" class="uts.codesale.dao.impl.RoleDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="roleService" class="uts.codesale.service.impl.RoleServiceImpl">
+        <constructor-arg ref="roleDao"/>
     </bean>
     
     <bean id="register" class="uts.codesale.action.RegisterAction" singleton="false">
@@ -205,6 +213,16 @@
        <property name="baseDir">
            <!-- <value>/Users/xuepingpeng/Documents/projects/codesales</value>  -->
            <value>${baseDir}</value>
+       </property>
+    </bean>
+    
+    <bean id="userDetails" class="uts.codesale.security.UserDetailsServiceImpl" singleton="false">
+       
+       <property name="userService">
+           <ref bean="userService"/>
+       </property>
+       <property name="roleService">
+           <ref bean="roleService"/>
        </property>
     </bean>
     

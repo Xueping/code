@@ -8,10 +8,12 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import com.opensymphony.xwork2.ActionContext;
 
 import uts.codesale.beans.Role;
 import uts.codesale.beans.User;
@@ -50,8 +52,6 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		org.springframework.security.core.userdetails.User userDetails = null;
 		User user = userService.getUserByUsername(account);
 		
-		//账号密码错误，可以在这里手动抛出异常，让验证失败处理器AuthenticationFailureHandler进行处理
-		
 		Collection<GrantedAuthority> grantedAuthorities = getGrantedAuthorities(user);  
 		boolean enables = true;  
         boolean accountNonExpired = true;  
@@ -71,7 +71,8 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         List<Role> roles = roleService.getByUserId(user.getId()); 
         if(roles != null) {
         	for(Role role : roles) {  
-        		grantedAuthorities.add(new GrantedAuthorityImpl(role.getName()));
+        		grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+        		System.out.println("Role name is :"+role.getName());
             }  
         }
         return grantedAuthorities;  

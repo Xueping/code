@@ -88,6 +88,11 @@ public class LoginAction extends AbstractAction {
 	public void setUserNotExistErrorMessage(String userNotExistErrorMessage) {
 		this.userNotExistErrorMessage = userNotExistErrorMessage;
 	}
+	
+	public String login() {
+		
+				return SUCCESS;
+	}
 
 	public String execute() throws Exception {
 		

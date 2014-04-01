@@ -16,6 +16,11 @@
 	<package name="web" extends="struts-default" >       
 		
 		<!-- User -->
+		<action name="Login_input" method="login" class="loginAction">
+    		<result>/login.jsp</result>
+    		<result name="input">/login.jsp</result>
+		</action>
+		
 		<action name="Login" class="loginAction">
     		<result type="redirectAction" >dashboard</result>
     		<result name="input">/login.jsp</result>

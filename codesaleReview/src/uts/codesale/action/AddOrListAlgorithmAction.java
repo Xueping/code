@@ -24,6 +24,7 @@ import uts.codesale.beans.Testing;
 import uts.codesale.beans.User;
 import uts.codesale.commons.AbstractAction;
 import uts.codesale.commons.FileExtension;
+import uts.codesale.security.SessionUserDetailsUtil;
 import uts.codesale.service.AlgorithmBKPService;
 import uts.codesale.service.AlgorithmService;
 import uts.codesale.service.UserService;
@@ -248,7 +249,9 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 	public String listAll() throws Exception {
 		if (!this.isUserLogin())
 			return INPUT;
-		User user = (User) ActionContext.getContext().getSession().get("user");
+		
+//		User user = (User) ActionContext.getContext().getSession().get("user");
+		User user  = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		
 		this.myAllAlgorithms = userService.getAlgorithmsByUserID(user.getId()).iterator();
 		this.myReviewAlgorithms = userService.getReviewAlgorithmsByUserID(user.getId()).iterator();

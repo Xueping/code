@@ -1,8 +1,8 @@
 package uts.codesale.commons;
 
 import uts.codesale.beans.User;
+import uts.codesale.security.SessionUserDetailsUtil;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class AbstractAction extends ActionSupport {
@@ -59,20 +59,21 @@ public class AbstractAction extends ActionSupport {
 
 	public boolean isUserLogin() throws Exception {
 
-		validateUser = (User) ActionContext.getContext().getSession().get("user");
-		if (validateUser == null || validateUser.equals(null)) {
-			this.setErrorMessage("¶Ô²»Æð£¬Äú»¹Ã»ÓÐµÇÂ¼£¡");
-			this.setMenuError(true);
-			return false;
-		} else {
-			if(validateUser.getAdmin().equalsIgnoreCase("yes"))
-				this.setAdmin(true);
-			else {
-				this.setAdmin(false);
-			}
-			return true;
-		}
+//		validateUser = (User) ActionContext.getContext().getSession().get("user");
+//		if (validateUser == null || validateUser.equals(null)) {
+//			this.setErrorMessage("ï¿½Ô²ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ðµï¿½Â¼ï¿½ï¿½");
+//			this.setMenuError(true);
+//			return false;
+//		} else {
+//			if(validateUser.getAdmin().equalsIgnoreCase("yes"))
+//				this.setAdmin(true);
+//			else {
+//				this.setAdmin(false);
+//			}
+//			return true;
+//		}
 			
-
+		return SessionUserDetailsUtil.isLogined();
+		
 	}
 }

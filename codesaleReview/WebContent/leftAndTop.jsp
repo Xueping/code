@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" import="uts.codesale.security.*" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
@@ -46,10 +46,10 @@
     <!-- Top fixed navigation -->
     <div class="topNav">
         <div class="wrapper">
-            <div class="welcome"><a title="" href="#"><img alt="" src="images/userPic.png"></a><span>Hello, <s:property value="%{#session.user.username}" />!</span></div>
+            <div class="welcome"><a title="" href="#"><img alt="" src="images/userPic.png"></a><span>Hello, <%=SessionUserDetailsUtil.getLoginUserName() %>!</span></div>
             <div class="userNav">
                 <ul>
-                    <li><a href="<s:url action="Logout"/>"><img alt="" src="images/icons/topnav/logout.png"><span>Logout</span></a></li>
+                    <li><a href="logout"><img alt="" src="images/icons/topnav/logout.png"><span>Logout</span></a></li>
                 </ul>
             </div>
         </div>
