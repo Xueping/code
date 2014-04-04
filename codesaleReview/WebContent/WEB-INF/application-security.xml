@@ -22,12 +22,11 @@
         	always-use-default-target="true"
 			authentication-success-handler-ref="successHandler"
 			authentication-failure-handler-ref="failureHandler" />
-		
+		        
         <logout invalidate-session="true"  
         	logout-success-url="/logout.jsp"   
       		logout-url="/logout"/>
-        
-        
+      		
         <remember-me />  
         <!-- Uncomment to limit the number of sessions a user can have -->  
        <!-- 

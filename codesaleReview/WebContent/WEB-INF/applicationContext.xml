@@ -180,6 +180,9 @@
        <property name="algorithmBKPService">
            <ref bean="algBKPService"/>
        </property>
+       <property name="userService">
+           <ref bean="userService"/>
+       </property>
        <property name="baseDir">
             <value>${baseDir}</value>
        </property>

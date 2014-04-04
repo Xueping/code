@@ -13,8 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.opensymphony.xwork2.ActionContext;
-
 import uts.codesale.beans.Role;
 import uts.codesale.beans.User;
 import uts.codesale.service.RoleService;

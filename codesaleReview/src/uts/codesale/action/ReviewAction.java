@@ -18,11 +18,12 @@ import uts.codesale.beans.Review;
 import uts.codesale.beans.User;
 import uts.codesale.commons.AbstractAction;
 import uts.codesale.commons.FileExtension;
+import uts.codesale.security.SessionUserDetailsUtil;
 import uts.codesale.service.AlgorithmService;
 import uts.codesale.service.ReviewService;
 import uts.codesale.service.UserService;
 
-import com.opensymphony.xwork2.ActionContext;
+//import com.opensymphony.xwork2.ActionContext; 
 
 public class ReviewAction extends AbstractAction{
 
@@ -61,7 +62,8 @@ public class ReviewAction extends AbstractAction{
 	public String agl_reviewList() throws Exception{
 		if (!this.isUserLogin())
 			return INPUT;
-		User user = (User) ActionContext.getContext().getSession().get("user");
+//		User user = (User) ActionContext.getContext().getSession().get("user");
+		User user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		reviewList = userService.getReviewAlgorithmsByUserID(user.getId()).iterator();
 		//waitingReviewList = algorithmService.getWaitingReviewAlgorithms().iterator();
 		return SUCCESS;
@@ -71,7 +73,8 @@ public class ReviewAction extends AbstractAction{
 		if (!this.isUserLogin())
 			return INPUT;
 		algorithm = this.getAlgorithmService().get(getAlg_id());
-		user = (User) ActionContext.getContext().getSession().get("user");
+//		user = (User) ActionContext.getContext().getSession().get("user");
+		user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		allUsers = userService.getAll().iterator();
 		this.reviews = this.getAlgorithmService().getReviewByAlg_Id(getAlg_id()).iterator();
 		if(algorithm.getReview_result().trim().equalsIgnoreCase("Waiting")){
@@ -87,7 +90,8 @@ public class ReviewAction extends AbstractAction{
 		if (!this.isUserLogin())
 			return INPUT;
 		algorithm = this.getAlgorithmService().get(getAlg_id());
-		user = (User) ActionContext.getContext().getSession().get("user");
+//		user = (User) ActionContext.getContext().getSession().get("user");
+		user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		
 		Set<Review> reviews = this.getAlgorithmService().getReviewByAlg_Id(alg_id);
 		for(Review r : reviews) {
@@ -176,7 +180,8 @@ public class ReviewAction extends AbstractAction{
 			return INPUT;
 		
 		Algorithm alg = this.getAlgorithmService().get(this.getAlg_id());
-		user = (User) ActionContext.getContext().getSession().get("user");
+//		user = (User) ActionContext.getContext().getSession().get("user");
+		user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		//edit current review
 		Set<Review> reviews = alg.getReviews();
 		for(Review r : reviews) {
@@ -305,7 +310,8 @@ public class ReviewAction extends AbstractAction{
 			return INPUT;
 		algorithm = this.getAlgorithmService().get(getAlg_id());
 		this.reviews = this.getAlgorithmService().getReviewByAlg_Id(getAlg_id()).iterator();
-		User user = (User) ActionContext.getContext().getSession().get("user");
+//		User user = (User) ActionContext.getContext().getSession().get("user");
+		User user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		if(user.getAdmin().trim().equalsIgnoreCase("yes")){
 			admin = true;
 		}else{

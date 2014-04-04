@@ -29,7 +29,7 @@ import uts.codesale.service.AlgorithmBKPService;
 import uts.codesale.service.AlgorithmService;
 import uts.codesale.service.UserService;
 
-import com.opensymphony.xwork2.ActionContext;
+//import com.opensymphony.xwork2.ActionContext;
 
 public class AddOrListAlgorithmAction extends AbstractAction{
 
@@ -149,7 +149,7 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		User user = (User) ActionContext.getContext().getSession().get("user");
+		User user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		log.info("Username: "+ user.getUsername() + " begins to add a new algorithm.");
 		
 		String fileName = "";
@@ -297,7 +297,7 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 	public String displayAlgorithm() throws Exception {
 		if (!this.isUserLogin())
 			return INPUT;
-		User user = (User) ActionContext.getContext().getSession().get("user");
+		User user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		if(user.getAdmin().trim().equalsIgnoreCase("yes")){
 			admin = true;
 		}else{
@@ -323,7 +323,7 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 		} catch (Exception e) {
 			return INPUT;
 		}
-	   User user = (User) ActionContext.getContext().getSession().get("user");
+	   User user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 	   String finalFile = null;
 	   if(this.type.equalsIgnoreCase("alg")) {
 		   finalFile = baseDir+"/data/algorithms/"+filePath; 

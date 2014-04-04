@@ -5,9 +5,10 @@ import org.slf4j.LoggerFactory;
 
 import uts.codesale.beans.User;
 import uts.codesale.commons.AbstractAction;
+import uts.codesale.security.SessionUserDetailsUtil;
 import uts.codesale.service.UserService;
 
-import com.opensymphony.xwork2.ActionContext;
+//import com.opensymphony.xwork2.ActionContext;
 
 public class UserEditAction extends AbstractAction {
 
@@ -91,7 +92,8 @@ public class UserEditAction extends AbstractAction {
 	}
 
 	public String execute() {
-		user =  (User)ActionContext.getContext().getSession().get("user");
+//		user =  (User)ActionContext.getContext().getSession().get("user");
+		user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		return SUCCESS;
 	}
 
@@ -99,7 +101,8 @@ public class UserEditAction extends AbstractAction {
 		//get user from session
 		if (!this.isUserLogin())
 			return "Login";	
-		User tempuser = (User)ActionContext.getContext().getSession().get("user");
+		User tempuser = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
+//		User tempuser = (User)ActionContext.getContext().getSession().get("user");
 		user = tempuser;
 		//if the new password equals to the old one
 		if(!tempuser.getPassword().equals(this.getOldPassword().trim())){

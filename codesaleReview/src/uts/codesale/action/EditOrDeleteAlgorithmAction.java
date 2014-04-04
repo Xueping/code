@@ -9,15 +9,16 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.opensymphony.xwork2.ActionContext;
-
 import uts.codesale.beans.Algorithm;
 import uts.codesale.beans.AlgorithmBKP;
 import uts.codesale.beans.User;
 import uts.codesale.commons.AbstractAction;
 import uts.codesale.commons.FileExtension;
+import uts.codesale.security.SessionUserDetailsUtil;
 import uts.codesale.service.AlgorithmBKPService;
 import uts.codesale.service.AlgorithmService;
+import uts.codesale.service.UserService;
+//import com.opensymphony.xwork2.ActionContext;
 
 public class EditOrDeleteAlgorithmAction extends AbstractAction {
 
@@ -29,6 +30,7 @@ public class EditOrDeleteAlgorithmAction extends AbstractAction {
 	private Algorithm algorithm = new Algorithm();
 	private Iterator<Algorithm> algorithms;
 	private AlgorithmService algorithmService;
+	private UserService userService;
 	private AlgorithmBKPService algorithmBKPService;
 	
 	private File alg_related_file;
@@ -127,7 +129,8 @@ public class EditOrDeleteAlgorithmAction extends AbstractAction {
 	public String edit_submit() throws Exception {
 		if (!this.isUserLogin())
 			return "Login";
-		User user = (User) ActionContext.getContext().getSession().get("user");
+//		User user = (User) ActionContext.getContext().getSession().get("user");
+		User user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		log.info("Username: "+user.getUsername()+" begin to edit the algorithm of id "+this.getAlgorithm().getAlg_ID());
 		this.getAlgorithm().setAlg_description(this.getAlgorithm().getAlg_description().replaceAll("[\r\n]", ""));
 		
@@ -177,7 +180,8 @@ public class EditOrDeleteAlgorithmAction extends AbstractAction {
 	public String editAdminResult() throws Exception {
 		if (!this.isUserLogin())
 			return "Login";
-		User user = (User) ActionContext.getContext().getSession().get("user");
+//		User user = (User) ActionContext.getContext().getSession().get("user");
+		User user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		this.algorithm = this.getAlgorithmService().get(this.getAlg_id());
 		this.algorithm.setAdmin_result(adminResult);
 		this.algorithm.setAdmin_comment(adminComment);
@@ -194,7 +198,8 @@ public class EditOrDeleteAlgorithmAction extends AbstractAction {
 	public String publish() throws Exception {
 		if (!this.isUserLogin())
 			return "Login";
-		User user = (User) ActionContext.getContext().getSession().get("user");
+//		User user = (User) ActionContext.getContext().getSession().get("user");
+		User user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		this.algorithm = this.getAlgorithmService().get(this.getAlg_id());
 		this.algorithm.setPublish("yes");
 		this.algorithmService.save(algorithm);
@@ -270,6 +275,14 @@ public class EditOrDeleteAlgorithmAction extends AbstractAction {
 
 	public void setAlgorithmBKPService(AlgorithmBKPService algorithmBKPService) {
 		this.algorithmBKPService = algorithmBKPService;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 
 	public static AlgorithmBKP transtoAlgorithmBKP(Algorithm alg) {

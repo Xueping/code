@@ -5,10 +5,10 @@ import java.util.Iterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.opensymphony.xwork2.ActionContext;
 
 import uts.codesale.beans.User;
 import uts.codesale.commons.AbstractAction;
+import uts.codesale.security.SessionUserDetailsUtil;
 import uts.codesale.service.UserService;
 
 
@@ -25,14 +25,16 @@ public class UserManagerAction extends AbstractAction {
 	public String execute() throws Exception  {
 		if (!this.isUserLogin())
 			return INPUT;	
-		user =  (User)ActionContext.getContext().getSession().get("user");
+//		user =  (User)ActionContext.getContext().getSession().get("user");
+		user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		return SUCCESS;
 	}
 
 	public String changePassword() throws Exception {
 		if (!this.isUserLogin())
 			return INPUT;	
-		user =  (User)ActionContext.getContext().getSession().get("user");
+		user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
+//		user =  (User)ActionContext.getContext().getSession().get("user");
 		return SUCCESS;
 	}
 	

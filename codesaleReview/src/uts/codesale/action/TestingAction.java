@@ -19,11 +19,12 @@ import uts.codesale.beans.Testing;
 import uts.codesale.beans.User;
 import uts.codesale.commons.AbstractAction;
 import uts.codesale.commons.FileExtension;
+import uts.codesale.security.SessionUserDetailsUtil;
 import uts.codesale.service.AlgorithmService;
 import uts.codesale.service.TestingService;
 import uts.codesale.service.UserService;
 
-import com.opensymphony.xwork2.ActionContext;
+//import com.opensymphony.xwork2.ActionContext;
 
 public class TestingAction extends AbstractAction{
 
@@ -63,7 +64,8 @@ public class TestingAction extends AbstractAction{
 	public String agl_testingList() throws Exception{
 		if (!this.isUserLogin())
 			return INPUT;
-		User user = (User) ActionContext.getContext().getSession().get("user");
+//		User user = (User) ActionContext.getContext().getSession().get("user");
+		User user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		testingList = userService.getTestingAlgorithmsByUserID(user.getId()).iterator();
 //		waitingTestingList = algorithmService.getWaitingTestingAlgorithms().iterator();
 		return SUCCESS;
@@ -73,7 +75,8 @@ public class TestingAction extends AbstractAction{
 		if (!this.isUserLogin())
 			return INPUT;
 		algorithm = this.getAlgorithmService().get(getAlg_id());
-		user = (User) ActionContext.getContext().getSession().get("user");
+//		user = (User) ActionContext.getContext().getSession().get("user");
+		user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		allUsers = userService.getAll().iterator();
 		reviews = this.getAlgorithmService().getReviewByAlg_Id(alg_id).iterator();
 		if(algorithm.getTest_results().trim().equalsIgnoreCase("Waiting")){
@@ -89,7 +92,8 @@ public class TestingAction extends AbstractAction{
 		if (!this.isUserLogin())
 			return INPUT;
 		this.algorithm = this.getAlgorithmService().get(getAlg_id());
-		user = (User) ActionContext.getContext().getSession().get("user");
+//		user = (User) ActionContext.getContext().getSession().get("user");
+		user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		
 		reviews = this.getAlgorithmService().getReviewByAlg_Id(alg_id).iterator();
 		
@@ -148,7 +152,8 @@ public class TestingAction extends AbstractAction{
 			return INPUT;
 		
 		Algorithm alg = this.getAlgorithmService().get(this.getAlg_id());
-		user = (User) ActionContext.getContext().getSession().get("user");
+//		user = (User) ActionContext.getContext().getSession().get("user");
+		user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		Set<Testing> testings = alg.getTestings();
 		for(Testing test: testings) {
 			if(test.getUser().getId()==this.getUser_id()) {
@@ -273,7 +278,8 @@ public class TestingAction extends AbstractAction{
 		algorithm = this.getAlgorithmService().get(getAlg_id());
 		reviews = this.getAlgorithmService().getReviewByAlg_Id(getAlg_id()).iterator();
 		testings = this.getAlgorithmService().getTestingByAlg_Id(alg_id).iterator();
-		user = (User) ActionContext.getContext().getSession().get("user");
+//		user = (User) ActionContext.getContext().getSession().get("user");
+		User user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		if(user.getAdmin().equalsIgnoreCase("yes")){
 			admin = true;
 		}else{
