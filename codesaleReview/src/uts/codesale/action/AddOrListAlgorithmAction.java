@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import uts.codesale.beans.Algorithm;
+import uts.codesale.beans.Community;
 import uts.codesale.beans.Review;
 import uts.codesale.beans.Testing;
 import uts.codesale.beans.User;
@@ -27,6 +28,7 @@ import uts.codesale.commons.FileExtension;
 import uts.codesale.security.SessionUserDetailsUtil;
 import uts.codesale.service.AlgorithmBKPService;
 import uts.codesale.service.AlgorithmService;
+import uts.codesale.service.CommunityService;
 import uts.codesale.service.UserService;
 
 //import com.opensymphony.xwork2.ActionContext;
@@ -46,6 +48,8 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 	private Iterator<Algorithm> algorithms;
 	
 	private AlgorithmService algorithmService;
+	private CommunityService communityService;
+	private Iterator<Community> allComms;
 	private AlgorithmBKPService algorithmBKPService;
 	private UserService userService;
 	private boolean admin;
@@ -306,6 +310,7 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 		algorithm = this.getAlgorithmService().get(getId());
 		reviews = this.getAlgorithmService().getReviewByAlg_Id(getId()).iterator();
 		testings = this.getAlgorithmService().getTestingByAlg_Id(getId()).iterator();
+		allComms = this.communityService.getAll().iterator();
 		if(algorithm.getAdmin_result().equalsIgnoreCase("Accept")){
 			acceptalbe = true;
 		}else{
@@ -715,6 +720,22 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 
 	public void setLength_PublishedList(int length_PublishedList) {
 		this.length_PublishedList = length_PublishedList;
+	}
+
+	public CommunityService getCommunityService() {
+		return communityService;
+	}
+
+	public void setCommunityService(CommunityService communityService) {
+		this.communityService = communityService;
+	}
+
+	public Iterator<Community> getAllComms() {
+		return allComms;
+	}
+
+	public void setAllComms(Iterator<Community> allComms) {
+		this.allComms = allComms;
 	}
 
 }

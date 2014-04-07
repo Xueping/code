@@ -154,7 +154,7 @@
 						<div class="formSubmit">
 							<input class="redB" type="submit" value="submit">
 						</div>
-						   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+						  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
 						  <script src="js/chosen.jquery.js" type="text/javascript"></script>
 						  <script src="js/prism.js" type="text/javascript" charset="utf-8"></script>
 						  <script type="text/javascript">

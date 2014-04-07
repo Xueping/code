@@ -392,7 +392,7 @@ public class Algorithm extends AGenericObject implements Serializable {
 	}
 
 	@ManyToOne(targetEntity = Community.class,fetch = FetchType.LAZY)
-	@JoinColumn(name = "comm_ID", nullable = false)
+	@JoinColumn(name = "comm_ID")
 	public Community getCommunity() {
 		return community;
 	}

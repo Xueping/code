@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -11,12 +12,14 @@ import org.slf4j.LoggerFactory;
 
 import uts.codesale.beans.Algorithm;
 import uts.codesale.beans.AlgorithmBKP;
+import uts.codesale.beans.Community;
 import uts.codesale.beans.User;
 import uts.codesale.commons.AbstractAction;
 import uts.codesale.commons.FileExtension;
 import uts.codesale.security.SessionUserDetailsUtil;
 import uts.codesale.service.AlgorithmBKPService;
 import uts.codesale.service.AlgorithmService;
+import uts.codesale.service.CommunityService;
 import uts.codesale.service.UserService;
 //import com.opensymphony.xwork2.ActionContext;
 
@@ -25,6 +28,7 @@ public class EditOrDeleteAlgorithmAction extends AbstractAction {
 	private static final long serialVersionUID = 3573358554837259584L;
 	private static Logger log = LoggerFactory.getLogger(EditOrDeleteAlgorithmAction.class);
 	private Long alg_id;
+	private Long comm_id;
 	private String adminResult;
 	private String adminComment;
 	private Algorithm algorithm = new Algorithm();
@@ -32,6 +36,7 @@ public class EditOrDeleteAlgorithmAction extends AbstractAction {
 	private AlgorithmService algorithmService;
 	private UserService userService;
 	private AlgorithmBKPService algorithmBKPService;
+	private CommunityService communityService;
 	
 	private File alg_related_file;
 	private File alg_picture_file;
@@ -183,8 +188,18 @@ public class EditOrDeleteAlgorithmAction extends AbstractAction {
 //		User user = (User) ActionContext.getContext().getSession().get("user");
 		User user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		this.algorithm = this.getAlgorithmService().get(this.getAlg_id());
+		
+		if(adminResult.equalsIgnoreCase("Accept")){
+			Community com = this.communityService.get(this.comm_id);
+			this.algorithm.setCommunity(com);
+			Set<Algorithm> agls = com.getAlgorithms();
+			agls.add(algorithm);
+			this.communityService.save(com);
+		}
+		
 		this.algorithm.setAdmin_result(adminResult);
 		this.algorithm.setAdmin_comment(adminComment);
+		
 		if(adminResult.equalsIgnoreCase("revise")) {
 			this.algorithm.setCurrent_status(adminResult);
 		}else {
@@ -323,5 +338,21 @@ public class EditOrDeleteAlgorithmAction extends AbstractAction {
 	    alg_bkp.setBackup_date(date);
 		return alg_bkp;
 		
+	}
+
+	public CommunityService getCommunityService() {
+		return communityService;
+	}
+
+	public void setCommunityService(CommunityService communityService) {
+		this.communityService = communityService;
+	}
+
+	public Long getComm_id() {
+		return comm_id;
+	}
+
+	public void setComm_id(Long comm_id) {
+		this.comm_id = comm_id;
 	}
 }

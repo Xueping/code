@@ -31,7 +31,8 @@
         <li><a class="exp active" title="" href="#"><span>Management</span></a>
             <ul class="sub" style="display: block;">
             	<s:if test="admin==true">
-					<li><a href="<s:url action="Register"/>">Add User</a></li>	
+					<li><a href="<s:url action="Register"/>">Add User</a></li>
+					<li><a href="<s:url action="community"/>">Add Community</a></li>	
 				</s:if>
 				<s:if test="admin==false">
                 <li><a href="<s:url action="submission_new"/>">Submission</a></li>

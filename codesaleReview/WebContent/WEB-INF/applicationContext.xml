@@ -79,6 +79,7 @@
         		<value>testingService</value>
         		<value>algBKPService</value>
         		<value>roleService</value>
+        		<value>communityService</value>
         	</list>
         </property>
 
@@ -134,6 +135,13 @@
         <constructor-arg ref="roleDao"/>
     </bean>
     
+    <bean id="communityDao" class="uts.codesale.dao.impl.CommunityDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="communityService" class="uts.codesale.service.impl.CommunityServiceImpl">
+        <constructor-arg ref="communityDao"/>
+    </bean>
+    
     <bean id="register" class="uts.codesale.action.RegisterAction" singleton="false">
        <property name="userService">
            <ref bean="userService"/>
@@ -168,6 +176,9 @@
        <property name="algorithmBKPService">
            <ref bean="algBKPService"/>
        </property>
+       <property name="communityService">
+           <ref bean="communityService"/>
+       </property>
        <property name="baseDir">
             <value>${baseDir}</value>
        </property>
@@ -182,6 +193,9 @@
        </property>
        <property name="userService">
            <ref bean="userService"/>
+       </property>
+       <property name="communityService">
+           <ref bean="communityService"/>
        </property>
        <property name="baseDir">
             <value>${baseDir}</value>
@@ -226,6 +240,21 @@
        </property>
        <property name="roleService">
            <ref bean="roleService"/>
+       </property>
+    </bean>
+    
+    <bean id="communityAction" class="uts.codesale.action.CommunityAction" singleton="false">
+       <property name="algorithmService">
+           <ref bean="algService"/>
+       </property>
+       <property name="userService">
+           <ref bean="userService"/>
+       </property>
+       <property name="roleService">
+           <ref bean="roleService"/>
+       </property>
+       <property name="communityService">
+           <ref bean="communityService"/>
        </property>
     </bean>
     

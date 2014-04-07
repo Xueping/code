@@ -7,6 +7,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="css/main.css" rel="stylesheet" type="text/css">
 <title>Algorithm Information</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+<script>
+function checkit(status)
+{
+	if (status=="Accept"){
+		$('#comm_add').css("display", "block");
+	}else{
+
+		$('#comm_add').css("display", "none");
+	}
+}
+
+</script> 
 </head>
 <body>
 <jsp:include page="/leftAndTop.jsp" />
@@ -156,14 +169,26 @@
 						<div class="formRow">
 							<label>Edit Admin Result:</label>
 							<div class="formRight">
-								<s:select list="resultList"  name="adminResult" id="adminResult" value="algorithm.admin_result"></s:select>
+								<s:select list="resultList"  name="adminResult" id="adminResult" onchange="checkit(this.value);" value="algorithm.admin_result"></s:select>
+							</div>
+						</div>
+						<div class="formRow" id="comm_add" style="display:none">
+							<label>Assign Community:</label>
+							<div class="formRight">
+								<select name="comm_id">
+								    <s:iterator value="allComms">
+	                          		<option value="<s:property value="id"/>"><s:property value="name"/></option>
+	                          		</s:iterator>
+								</select>
 							</div>
 						</div>
 						<div class="formSubmit">
 							<input class="redB" type="submit" value="submit">
 						</div>
+						  
+						  
 						</form>
-							
+						
 						</s:if>
 					</div>
 				</fieldset>

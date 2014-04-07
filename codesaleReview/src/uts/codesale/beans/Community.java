@@ -29,6 +29,7 @@ public class Community extends AGenericObject implements Serializable {
 	private Long id;
 	private String name;
 	private String description;
+	private String admin;
 	private Set<User> users = new HashSet<User>();
 	private Set<User> admins = new HashSet<User>();
 	private Set<Algorithm> algorithms = new HashSet<Algorithm>();
@@ -93,6 +94,15 @@ public class Community extends AGenericObject implements Serializable {
 
 	public void setAlgorithms(Set<Algorithm> algorithms) {
 		this.algorithms = algorithms;
+	}
+
+	@Column(nullable = false, length = 512)
+	public String getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(String admin) {
+		this.admin = admin;
 	}
 
 	@Override

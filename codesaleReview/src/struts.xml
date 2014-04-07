@@ -255,6 +255,16 @@
   			<result type="redirectAction">dashboard</result>
   			<result name="input" type="redirectAction">dashboard</result>
 		</action>
+		<!-- Community -->
+		<action name="community"  class="communityAction">
+  			<result>/community/community_add.jsp</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="community_add" method="community_add" class="communityAction">
+  			<result>/community/community_add.jsp</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
 		
     </package>
 </struts>
