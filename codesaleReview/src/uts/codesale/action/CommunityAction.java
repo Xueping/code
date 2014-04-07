@@ -78,7 +78,7 @@ public class CommunityAction extends AbstractAction{
 		role.setUsers(users);
 		this.getRoleService().save(role);
 		log.info("Add community role to user: " + admin.getUsername());
-		
+		this.message = "A new community \"" + this.getCommunity().getName() + "\" has been created! <p> And Community admin is \"" + admin.getUsername() +"\"";
 		
 		return SUCCESS;
 	}
@@ -110,6 +110,7 @@ public class CommunityAction extends AbstractAction{
 		}
 		this.community.setUsers(us);
 		this.communityService.save(community);
+		this.message = users.size() +" user(s)  joined the community \"" + this.getCommunity().getName() + "\" successfully!";
 		return SUCCESS;
 	}
 

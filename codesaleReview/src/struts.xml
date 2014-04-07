@@ -262,9 +262,27 @@
 		</action>
 		
 		<action name="community_add" method="community_add" class="communityAction">
+  			<result>/success.jsp</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="community_add_user" method="community_add_user" class="communityAction">
+  			<result>/community/community_add_user.jsp</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="community_add_user_submit" method="community_add_user_submit" class="communityAction">
+  			<result>/success.jsp</result>
+  			<result name="input" type="redirectAction">dashboard</result>
+		</action>
+		
+		<action name="updateComm" method="community_update" class="communityAction">
   			<result>/community/community_add.jsp</result>
   			<result name="input" type="redirectAction">dashboard</result>
 		</action>
+		
+		
+		
 		
     </package>
 </struts>

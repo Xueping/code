@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="css/main.css" rel="stylesheet" type="text/css">
-<title>Add Community Users</title>
+<title>Add New Community</title>
   <link rel="stylesheet" href="css/chosen.css">
   <style type="text/css" media="all">
     /* fix rtl for demo */
@@ -20,7 +20,7 @@
     <div class="titleArea">
         <div class="wrapper">
             <div class="pageTitle">
-                <h5>Add Community Users</h5>
+                <h5>Add New Community</h5>
                 <span>
                 	<font color="red" >
 			            <s:property value="userExist"/>
@@ -33,7 +33,8 @@
     <!-- Main content wrapper -->
     <div class="wrapper">
 			<!-- Form -->
-			<form class="form" action="community_add_user_submit.action" method="post">
+			<form class="form" action="community_update.action" method="post">
+			 	<input type="hidden" name="comm_id" value="<s:property value="community.id"/>">
 				<fieldset>
 					<div class="widget">
 						<div class="title">
@@ -43,36 +44,23 @@
 						<div class="formRow">
 							<label>Community Name:</label>
 							<div class="formRight">
-								<s:property  value="community.name"/>
+								<input type="text" name="community.name">
 							</div>
 						</div>
 						<div class="formRow">
 							<label>Description</label>
 							<div class="formRight">
-								<s:property  value="community.description"/>
+								<input type="text" name="community.description">
 							</div>
 						</div>
 						<div class="formRow">
 	                        <label>Community Admin:</label>
 	                        <div class="formRight">
-		                       <s:property  value="community.admin"/>
-	                        </div>
-                        </div>
-                        <input type="hidden" name="comm_id" value="<s:property value="community.id"/>">
-                        <div class="formRow">
-	                        <label>Add Users:</label>
-	                        <div class="formRight">
-	                          <select style="width:750px;" name="users" multiple class="chosen-select" data-placeholder="Select Users...">
-	                          	<s:iterator value="allUsers">
-	                          		<s:if test="username==community.admin">
-	                          		<option disabled value="<s:property value="id"/>"><s:property value="username"/></option>
-	                          		</s:if>
-	                          		<s:else>
+		                        <select data-placeholder="Add Community Admin..." name="commAdmin" style="width:100%;" class="chosen-select" tabindex="7">
+						            <s:iterator value="allUsers">
 	                          		<option value="<s:property value="id"/>"><s:property value="username"/></option>
-	                          		</s:else>
-	                          		
-	                          	</s:iterator>
-					          </select> 
+	                          		</s:iterator>
+	          					</select>
 	                        </div>
                         </div> 
 						<div class="formSubmit">
@@ -80,7 +68,7 @@
 						</div>
 					</div>
 				</fieldset>
-				  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
 				  <script src="js/chosen.jquery.js" type="text/javascript"></script>
 				  <script src="js/prism.js" type="text/javascript" charset="utf-8"></script>
 				  <script type="text/javascript">
