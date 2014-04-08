@@ -102,8 +102,11 @@ public class UserServiceImpl extends GenericServiceImpl<User, Long> implements
 		return false;
 	}
 	
-	public Set<Algorithm> getAlgorithmsByUserID(Long UserID){
-		return this.userDao.loadAlgorithmsByUserID(UserID);
+	@SuppressWarnings("unchecked")
+	public List<Algorithm> getAlgorithmsByUserID(Long UserID){
+		
+		
+		return (List<Algorithm>) this.userDao.loadAlgorithmsByUserID(UserID);
 	}
 	
 	public List<Algorithm> getReviewAlgorithmsByUserID(Long UserID){

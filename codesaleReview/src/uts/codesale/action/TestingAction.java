@@ -97,7 +97,7 @@ public class TestingAction extends AbstractAction{
 		
 		reviews = this.getAlgorithmService().getReviewByAlg_Id(alg_id).iterator();
 		
-		Set<Testing> tests = this.getAlgorithmService().getTestingByAlg_Id(alg_id);
+		List<Testing> tests = this.getAlgorithmService().getTestingByAlg_Id(alg_id);
 		for(Testing t : tests) {
 			if(t.getUser().getId()==user.getId()) {
 				this.current_test = t;

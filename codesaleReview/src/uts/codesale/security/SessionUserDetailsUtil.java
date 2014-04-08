@@ -20,7 +20,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class SessionUserDetailsUtil {
 
 	/**
-	 * 得到当前session中的用户，如果没有返回null
+	 * Get the user of current session,return null if it does not exist!
 	 * 
 	 * @return UserDetails
 	 */
@@ -46,7 +46,7 @@ public class SessionUserDetailsUtil {
 	}
 
 	/**
-	 * 得到当前登录用户，如果没有返回null
+	 * get current user's name，return null if it does not exist!
 	 * 
 	 * @return loginId
 	 */
@@ -60,7 +60,7 @@ public class SessionUserDetailsUtil {
 	}
 
 	/**
-	 * 判断用户是否登陆
+	 * Check if user is logined
 	 *
 	 */
 	public static boolean isLogined() {
@@ -70,7 +70,17 @@ public class SessionUserDetailsUtil {
 	}
 	
 	/**
-	 * 判断用户是否登陆
+	 * Check if user has permission
+	 *
+	 */
+	public static boolean isPermission(String role) {
+		boolean flag = false;
+		if(getUserRoles().contains(role)) flag = true;
+		return flag;
+	}
+	
+	/**
+	 * Check if user logout
 	 *
 	 */
 	public static void logout() {

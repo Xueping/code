@@ -38,7 +38,7 @@ public interface UserService extends IGenericService<User, Long> {
 
 	public boolean userPrivilegeValide(User user, String pageLink);
 	
-	public Set<Algorithm> getAlgorithmsByUserID(Long UserID);
+	public List<Algorithm> getAlgorithmsByUserID(Long UserID);
 
 	public List<User> getUsersByAuthority() throws UsernameNotFoundException;
 	

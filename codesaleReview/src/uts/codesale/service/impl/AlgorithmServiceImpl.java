@@ -30,10 +30,6 @@ public class AlgorithmServiceImpl extends GenericServiceImpl<Algorithm, Long>
 		return itemDao.loadAlgorithmByName(name);
 	}
 
-	public List<Algorithm> getAlgorithmsByFuzzyName(String fuzzyTitle)
-			throws NotFoundException {
-		return itemDao.loadAlgorithmsByFuzzyName(fuzzyTitle);
-	}
 
 	public boolean isAlgorithmExists(String name) {
 		return itemDao.isAlgorithmExists(name);
@@ -41,7 +37,6 @@ public class AlgorithmServiceImpl extends GenericServiceImpl<Algorithm, Long>
 
 	@Override
 	public List<Algorithm> getAlgorithmByUser(Set<User> users) throws NotFoundException {
-		// TODO Auto-generated method stub
 		return itemDao.loadAlgorithmByUser(users);
 	}
 	
@@ -57,13 +52,13 @@ public class AlgorithmServiceImpl extends GenericServiceImpl<Algorithm, Long>
 	}
 
 	@Override
-	public Set<Review> getReviewByAlg_Id(Long alg_id) {
-		return this.itemDao.loadReviewByAlg_Id(alg_id);
+	public List<Review> getReviewByAlg_Id(Long alg_id) {
+		return (List<Review>) this.itemDao.loadReviewByAlg_Id(alg_id);
 	}
 
 	@Override
-	public Set<Testing> getTestingByAlg_Id(Long alg_id) {
-		return this.itemDao.loadTestingByAlg_Id(alg_id);
+	public List<Testing> getTestingByAlg_Id(Long alg_id) {
+		return (List<Testing>) this.itemDao.loadTestingByAlg_Id(alg_id);
 	}
 	public List<Algorithm> getWaitingResubmitAlgorithms(){
 		return this.itemDao.loadResubmitAlgorithms();
@@ -77,6 +72,31 @@ public class AlgorithmServiceImpl extends GenericServiceImpl<Algorithm, Long>
 	@Override
 	public List<Algorithm> getRejectAlgorithms() {
 		return this.itemDao.loadRejectAlgorithms();
+	}
+
+	@Override
+	public List<Algorithm> getAlgorithmsByCommunity(Long comm_id) {
+		return this.itemDao.loadAlgorithmsByCommunity(comm_id);
+	}
+
+	@Override
+	public List<Algorithm> getPublishAlgorithms(String published, Long comm_id) {
+		return this.itemDao.loadPublishAlgorithms(published, comm_id);
+	}
+
+	@Override
+	public List<Algorithm> getRejectAlgorithms(Long comm_id) {
+		return this.itemDao.loadRejectAlgorithms(comm_id);
+	}
+
+	@Override
+	public List<Algorithm> getReviewAlgorithms(String status, Long comm_id) {
+		return this.itemDao.loadReviewAlgorithms(status, comm_id);
+	}
+
+	@Override
+	public List<Algorithm> getTestingAlgorithms(String status, Long comm_id) {
+		return this.itemDao.loadTestingAlgorithms(status, comm_id);
 	}
 
 }

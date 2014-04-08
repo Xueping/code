@@ -12,8 +12,6 @@ import uts.codesale.exception.NotFoundException;
 
 public interface AlgorithmService extends IGenericService<Algorithm, Long> {
 
-	public List<Algorithm> getAlgorithmsByFuzzyName(String fuzzyTitle)
-			throws NotFoundException;
 	public List<Algorithm> getAlgorithmByUser(Set<User> users) throws NotFoundException;
 
 	public Algorithm getAlgorithmByName(String title) throws NotFoundException;
@@ -30,7 +28,13 @@ public interface AlgorithmService extends IGenericService<Algorithm, Long> {
 	public List<Algorithm> getReviewAlgorithms(String status);
 	public List<Algorithm> getTestingAlgorithms(String status);
 	
-	public Set<Review> getReviewByAlg_Id(Long alg_id);
-	public Set<Testing> getTestingByAlg_Id(Long alg_id);
+	public List<Review> getReviewByAlg_Id(Long alg_id);
+	public List<Testing> getTestingByAlg_Id(Long alg_id);
+	
+	public List<Algorithm> getAlgorithmsByCommunity(Long comm_id);
+	public List<Algorithm> getPublishAlgorithms(String published,Long comm_id);
+	public List<Algorithm> getRejectAlgorithms(Long comm_id);
+	public List<Algorithm> getReviewAlgorithms(String status,Long comm_id);
+	public List<Algorithm> getTestingAlgorithms(String status,Long comm_id);
 
 }

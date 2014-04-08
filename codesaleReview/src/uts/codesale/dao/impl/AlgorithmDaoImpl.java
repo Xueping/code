@@ -54,17 +54,6 @@ public class AlgorithmDaoImpl extends GenericDaoImpl<Algorithm, Long> implements
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<Algorithm> loadAlgorithmsByFuzzyName(String fuzzyName)
-			throws NotFoundException {
-		List<Algorithm> files = getHibernateTemplate().find(
-				"from Algorithm where name like ?", "%" + fuzzyName + "%");
-		if (files == null || files.isEmpty()) {
-			throw new NotFoundException("file '" + fuzzyName + "' not found...");
-		} else {
-			return files;
-		}
-	}
 	
 	public List<Algorithm> loadWaitingAdminAlgorithms(){
 		
@@ -83,6 +72,15 @@ public class AlgorithmDaoImpl extends GenericDaoImpl<Algorithm, Long> implements
 		
 		return files;
 	}
+	
+	@Override
+	public List<Algorithm> loadReviewAlgorithms(String status, Long comm_id) {
+		@SuppressWarnings("unchecked")
+		List<Algorithm> files = getHibernateTemplate().find(
+				"from Algorithm where admin_result ='Accept' and review_result='"+status+"'  and comm_id= "+ comm_id+" order by submit_date desc , alg_ID DESC ");
+		
+		return files;
+	}
 
 	
 	@Override
@@ -92,6 +90,15 @@ public class AlgorithmDaoImpl extends GenericDaoImpl<Algorithm, Long> implements
 				"from Algorithm where review_result ='Accept' and test_results='"+status+"' order by submit_date desc , alg_ID DESC ");
 		return files;
 	}
+	
+	@Override
+	public List<Algorithm> loadTestingAlgorithms(String status, Long comm_id) {
+		@SuppressWarnings("unchecked")
+		List<Algorithm> files = getHibernateTemplate().find(
+				"from Algorithm where review_result ='Accept' and test_results='"+status+"' and comm_id= "+ comm_id+" order by submit_date desc , alg_ID DESC ");
+		return files;
+	}
+
 
 
 	@Override
@@ -133,6 +140,14 @@ public class AlgorithmDaoImpl extends GenericDaoImpl<Algorithm, Long> implements
 				"from Algorithm where test_results ='Accept' and publish='"+published+"' ORDER BY submit_date DESC , alg_ID DESC ");
 		return files;
 	}
+	
+	@Override
+	public List<Algorithm> loadPublishAlgorithms(String published, Long comm_id) {
+		@SuppressWarnings("unchecked")
+		List<Algorithm> files = getHibernateTemplate().find(
+				"from Algorithm where test_results ='Accept' and publish='"+published+"' and comm_id= "+ comm_id+" ORDER BY submit_date DESC , alg_ID DESC ");
+		return files;
+	}
 
 	@Override
 	public List<Algorithm> loadRejectAlgorithms() {
@@ -141,7 +156,21 @@ public class AlgorithmDaoImpl extends GenericDaoImpl<Algorithm, Long> implements
 				"from Algorithm where test_results ='Reject' or review_result='Reject' ORDER BY submit_date DESC , alg_ID DESC ");
 		return files;
 	}
+	
+	@Override
+	public List<Algorithm> loadRejectAlgorithms(Long comm_id) {
+		@SuppressWarnings("unchecked")
+		List<Algorithm> files = getHibernateTemplate().find(
+				"from Algorithm where (test_results ='Reject' or review_result='Reject') and comm_id= "+ comm_id+" ORDER BY submit_date DESC , alg_ID DESC ");
+		return files;
+	}
 
-
+	@Override
+	public List<Algorithm> loadAlgorithmsByCommunity(Long comm_id) {
+		@SuppressWarnings("unchecked")
+		List<Algorithm> files = getHibernateTemplate().find(
+				"from Algorithm where comm_id= "+ comm_id+" ORDER BY submit_date DESC , alg_ID DESC ");
+		return files;
+	}
 
 }

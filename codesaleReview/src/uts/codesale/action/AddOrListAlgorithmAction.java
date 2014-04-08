@@ -9,7 +9,6 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -45,11 +44,11 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 	private File alg_code_file;
 	private String alg_code_fileFileName;
 	private Algorithm algorithm = new Algorithm();
-	private Iterator<Algorithm> algorithms;
+	private List<Algorithm> algorithms;
 	
 	private AlgorithmService algorithmService;
 	private CommunityService communityService;
-	private Iterator<Community> allComms;
+	private List<Community> allComms;
 	private AlgorithmBKPService algorithmBKPService;
 	private UserService userService;
 	private boolean admin;
@@ -62,17 +61,17 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 	private Long contentLength;
 	private String type;
 	
-	private Iterator<Algorithm> waitingAdminList;
-	private Iterator<Algorithm> resubmitList;
-	private Iterator<Algorithm> reviewWaitingList;
-	private Iterator<Algorithm> testingWaitingList;
-	private Iterator<Algorithm> reviewOngoingList;
-	private Iterator<Algorithm> testingOngoingList;
-	private Iterator<Algorithm> reviewDoneList;
-	private Iterator<Algorithm> testingDoneList;
-	private Iterator<Algorithm> rejectList;
-	private Iterator<Algorithm> publishWaitingList;
-	private Iterator<Algorithm> publishedList;
+	private List<Algorithm> waitingAdminList;
+	private List<Algorithm> resubmitList;
+	private List<Algorithm> reviewWaitingList;
+	private List<Algorithm> testingWaitingList;
+	private List<Algorithm> reviewOngoingList;
+	private List<Algorithm> testingOngoingList;
+	private List<Algorithm> reviewDoneList;
+	private List<Algorithm> testingDoneList;
+	private List<Algorithm> rejectList;
+	private List<Algorithm> publishWaitingList;
+	private List<Algorithm> publishedList;
 	
 	private int length_WaitingAdminList;
 	private int length_ResubmitList;
@@ -86,15 +85,15 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 	private int length_PublishWaitingList;
 	private int length_PublishedList;
 	
-	private Iterator<Algorithm> myAllAlgorithms;
-	private Iterator<Algorithm> myReviewAlgorithms;
-	private Iterator<Algorithm> myTestingAlgorithms;
+	private List<Algorithm> myAllAlgorithms;
+	private List<Algorithm> myReviewAlgorithms;
+	private List<Algorithm> myTestingAlgorithms;
 	
 	private String errorMsg;
 	private String baseDir ;
 	
-	private Iterator<Review> reviews;
-	private Iterator<Testing> testings;
+	private List<Review> reviews;
+	private List<Testing> testings;
 	
 	private User currentUser;
 
@@ -106,11 +105,11 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 		this.algorithm = algorithm;
 	}
 
-	public Iterator<Algorithm> getAlgorithms() {
+	public List<Algorithm> getAlgorithms() {
 		return algorithms;
 	}
 
-	public void setAlgorithms(Iterator<Algorithm> algorithms) {
+	public void setAlgorithms(List<Algorithm> algorithms) {
 		this.algorithms = algorithms;
 	}
 
@@ -145,6 +144,10 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 		return super.execute();
 	}
 
+	/**
+	 * add a new algorithm
+	 *
+	 */ 
 	public String add() {
 		
 		try {
@@ -249,31 +252,145 @@ public class AddOrListAlgorithmAction extends AbstractAction{
         this.getAlgorithmBKPService().save(EditOrDeleteAlgorithmAction.transtoAlgorithmBKP(this.getAlgorithm()));
 		return SUCCESS;
 	}
+	
+	public String dispatcher() throws Exception {
+		if (!this.isUserLogin())
+			return INPUT;
+		List<String> roles =  SessionUserDetailsUtil.getUserRoles();
+		if(roles.size()==1) {
+			if(roles.contains("ROLE_ADMIN")) {
+				return admin();
+			}
+			else if(roles.contains("ROLE_COMM_ADMIN")) {
+				return community_admin();
+			}
+			else if(roles.contains("ROLE_USER")) {
+				return common_user();
+			}
+			else{
+				return publisher();
+			}
+		}else {
+			return common_user_publisher();
+		}
+	}
+	
+	public String admin() throws Exception {
+		if (!this.isUserLogin())
+			return INPUT;
+		
+		this.setAlgorithms(algorithmService.getAll());
+		waitingAdminList = algorithmService.getWaitingAdminAlgorithms();
+		reviewWaitingList = algorithmService.getReviewAlgorithms("Waiting");
+		testingWaitingList = algorithmService.getTestingAlgorithms("Waiting");
+		reviewOngoingList = algorithmService.getReviewAlgorithms("Ongoing");
+		testingOngoingList = algorithmService.getTestingAlgorithms("Ongoing");
+		reviewDoneList = algorithmService.getReviewAlgorithms("Done");
+		testingDoneList = algorithmService.getTestingAlgorithms("Done");
+		resubmitList = algorithmService.getWaitingResubmitAlgorithms();
+		publishWaitingList = algorithmService.getPublishAlgorithms("no");
+		publishedList = algorithmService.getPublishAlgorithms("yes");
+		rejectList = algorithmService.getRejectAlgorithms();
+		
+		this.length_WaitingAdminList = waitingAdminList.size();
+		this.length_ResubmitList = resubmitList.size();
+		
+		this.length_ReviewWaitingList = reviewWaitingList.size();
+		this.length_ReviewOngoingList = reviewOngoingList.size();
+		this.length_ReviewDoneList = reviewDoneList.size();
+		this.length_TestingWaitingList = testingWaitingList.size();
+		this.length_TestingOngoingList = testingOngoingList.size();
+		this.length_TestingDoneList = testingDoneList.size();
+		this.length_PublishWaitingList = publishWaitingList.size();
+		this.length_PublishedList = publishedList.size();
+		this.length_RejectList = rejectList.size();
+		
+		return "admin";
+	}
+	
+	public String community_admin() throws Exception {
+		if (!this.isUserLogin())
+			return INPUT;
+		User user  = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
+		Set<Community> coms = user.getCommunities_admin();
+		long comm_id = 0;
+		for(Community com : coms) {
+			comm_id = com.getId();
+		}
+		this.setAlgorithms(algorithmService.getAlgorithmsByCommunity(comm_id));
+		reviewWaitingList = algorithmService.getReviewAlgorithms("Waiting",comm_id);
+		testingWaitingList = algorithmService.getTestingAlgorithms("Waiting",comm_id);
+		reviewOngoingList = algorithmService.getReviewAlgorithms("Ongoing",comm_id);
+		testingOngoingList = algorithmService.getTestingAlgorithms("Ongoing",comm_id);
+		reviewDoneList = algorithmService.getReviewAlgorithms("Done",comm_id);
+		testingDoneList = algorithmService.getTestingAlgorithms("Done",comm_id);
+		publishWaitingList = algorithmService.getPublishAlgorithms("no",comm_id);
+		publishedList = algorithmService.getPublishAlgorithms("yes",comm_id);
+		rejectList = algorithmService.getRejectAlgorithms(comm_id);
+		
+		this.length_ReviewWaitingList = reviewWaitingList.size();
+		this.length_ReviewOngoingList = reviewOngoingList.size();
+		this.length_ReviewDoneList = reviewDoneList.size();
+		this.length_TestingWaitingList = testingWaitingList.size();
+		this.length_TestingOngoingList = testingOngoingList.size();
+		this.length_TestingDoneList = testingDoneList.size();
+		this.length_PublishWaitingList = publishWaitingList.size();
+		this.length_PublishedList = publishedList.size();
+		this.length_RejectList = rejectList.size();
+		
+		return "commAdmin";
+	}
+	
+	public String common_user() throws Exception {
+		if (!this.isUserLogin())
+			return INPUT;
+		
+		User user  = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
+		
+		this.myAllAlgorithms = userService.getAlgorithmsByUserID(user.getId());
+		this.myReviewAlgorithms = userService.getReviewAlgorithmsByUserID(user.getId());
+		this.myTestingAlgorithms = userService.getTestingAlgorithmsByUserID(user.getId());
+		currentUser = user;
+		return "user";
+	}
+	
+	public String publisher() throws Exception {
+		if (!this.isUserLogin())
+			return INPUT;
+		return INPUT;
+	}
+	
+	public String common_user_publisher() throws Exception {
+		if (!this.isUserLogin())
+			return INPUT;
+		return INPUT;
+	}
 
+	/**
+	 * dashboard shows various function depending on user's role
+	 */ 
 	public String listAll() throws Exception {
 		if (!this.isUserLogin())
 			return INPUT;
 		
-//		User user = (User) ActionContext.getContext().getSession().get("user");
 		User user  = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		
-		this.myAllAlgorithms = userService.getAlgorithmsByUserID(user.getId()).iterator();
-		this.myReviewAlgorithms = userService.getReviewAlgorithmsByUserID(user.getId()).iterator();
-		this.myTestingAlgorithms = userService.getTestingAlgorithmsByUserID(user.getId()).iterator();
+		this.myAllAlgorithms = userService.getAlgorithmsByUserID(user.getId());
+		this.myReviewAlgorithms = userService.getReviewAlgorithmsByUserID(user.getId());
+		this.myTestingAlgorithms = userService.getTestingAlgorithmsByUserID(user.getId());
 		
-		this.setAlgorithms(algorithmService.getAll().iterator());
-		
-		waitingAdminList = algorithmService.getWaitingAdminAlgorithms().iterator();
-		reviewWaitingList = algorithmService.getReviewAlgorithms("Waiting").iterator();
-		testingWaitingList = algorithmService.getTestingAlgorithms("Waiting").iterator();
-		reviewOngoingList = algorithmService.getReviewAlgorithms("Ongoing").iterator();
-		testingOngoingList = algorithmService.getTestingAlgorithms("Ongoing").iterator();
-		reviewDoneList = algorithmService.getReviewAlgorithms("Done").iterator();
-		testingDoneList = algorithmService.getTestingAlgorithms("Done").iterator();
-		resubmitList = algorithmService.getWaitingResubmitAlgorithms().iterator();
-		publishWaitingList = algorithmService.getPublishAlgorithms("no").iterator();
-		publishedList = algorithmService.getPublishAlgorithms("yes").iterator();
-		rejectList = algorithmService.getRejectAlgorithms().iterator();
+		this.setAlgorithms(algorithmService.getAll());
+		waitingAdminList = algorithmService.getWaitingAdminAlgorithms();
+		reviewWaitingList = algorithmService.getReviewAlgorithms("Waiting");
+		testingWaitingList = algorithmService.getTestingAlgorithms("Waiting");
+		reviewOngoingList = algorithmService.getReviewAlgorithms("Ongoing");
+		testingOngoingList = algorithmService.getTestingAlgorithms("Ongoing");
+		reviewDoneList = algorithmService.getReviewAlgorithms("Done");
+		testingDoneList = algorithmService.getTestingAlgorithms("Done");
+		resubmitList = algorithmService.getWaitingResubmitAlgorithms();
+		publishWaitingList = algorithmService.getPublishAlgorithms("no");
+		publishedList = algorithmService.getPublishAlgorithms("yes");
+		rejectList = algorithmService.getRejectAlgorithms();
 		
 		this.length_WaitingAdminList = algorithmService.getWaitingAdminAlgorithms().size();
 		this.length_ResubmitList = this.getAlgorithmService().getWaitingResubmitAlgorithms().size();
@@ -298,6 +415,9 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 		return SUCCESS;
 	}
 
+	/**
+	 * Display an algorithm based on its Id.
+	 */
 	public String displayAlgorithm() throws Exception {
 		if (!this.isUserLogin())
 			return INPUT;
@@ -308,9 +428,9 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 			admin = false;
 		}
 		algorithm = this.getAlgorithmService().get(getId());
-		reviews = this.getAlgorithmService().getReviewByAlg_Id(getId()).iterator();
-		testings = this.getAlgorithmService().getTestingByAlg_Id(getId()).iterator();
-		allComms = this.communityService.getAll().iterator();
+		reviews = this.getAlgorithmService().getReviewByAlg_Id(getId());
+		testings = this.getAlgorithmService().getTestingByAlg_Id(getId());
+		allComms = this.communityService.getAll();
 		if(algorithm.getAdmin_result().equalsIgnoreCase("Accept")){
 			acceptalbe = true;
 		}else{
@@ -320,6 +440,10 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 		return SUCCESS;
 	}
 	
+	/**
+	 * Download file
+	 * @return String
+	 */
 	public String executeFile() {
 	
 	   try {
@@ -434,11 +558,11 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 		this.acceptalbe = acceptalbe;
 	}
 
-	public Iterator<Algorithm> getWaitingAdminList() {
+	public List<Algorithm> getWaitingAdminList() {
 		return waitingAdminList;
 	}
 
-	public void setWaitingAdminList(Iterator<Algorithm> waitingAdminList) {
+	public void setWaitingAdminList(List<Algorithm> waitingAdminList) {
 		this.waitingAdminList = waitingAdminList;
 	}
 
@@ -458,27 +582,27 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 		this.length_WaitingAdminList = length_WaitingAdminList;
 	}
 
-	public Iterator<Algorithm> getMyAllAlgorithms() {
+	public List<Algorithm> getMyAllAlgorithms() {
 		return myAllAlgorithms;
 	}
 
-	public void setMyAllAlgorithms(Iterator<Algorithm> myAllAlgorithms) {
+	public void setMyAllAlgorithms(List<Algorithm> myAllAlgorithms) {
 		this.myAllAlgorithms = myAllAlgorithms;
 	}
 
-	public Iterator<Algorithm> getMyReviewAlgorithms() {
+	public List<Algorithm> getMyReviewAlgorithms() {
 		return myReviewAlgorithms;
 	}
 
-	public void setMyReviewAlgorithms(Iterator<Algorithm> myReviewAlgorithms) {
+	public void setMyReviewAlgorithms(List<Algorithm> myReviewAlgorithms) {
 		this.myReviewAlgorithms = myReviewAlgorithms;
 	}
 
-	public Iterator<Algorithm> getMyTestingAlgorithms() {
+	public List<Algorithm> getMyTestingAlgorithms() {
 		return myTestingAlgorithms;
 	}
 
-	public void setMyTestingAlgorithms(Iterator<Algorithm> myTestingAlgorithms) {
+	public void setMyTestingAlgorithms(List<Algorithm> myTestingAlgorithms) {
 		this.myTestingAlgorithms = myTestingAlgorithms;
 	}
 
@@ -538,11 +662,11 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 		this.algorithmBKPService = algorithmBKPService;
 	}
 
-	public Iterator<Algorithm> getResubmitList() {
+	public List<Algorithm> getResubmitList() {
 		return resubmitList;
 	}
 
-	public void setResubmitList(Iterator<Algorithm> resubmitList) {
+	public void setResubmitList(List<Algorithm> resubmitList) {
 		this.resubmitList = resubmitList;
 	}
 
@@ -554,59 +678,59 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 		this.length_ResubmitList = length_ResubmitList;
 	}
 
-	public Iterator<Algorithm> getReviewWaitingList() {
+	public List<Algorithm> getReviewWaitingList() {
 		return reviewWaitingList;
 	}
 
-	public void setReviewWaitingList(Iterator<Algorithm> reviewWaitingList) {
+	public void setReviewWaitingList(List<Algorithm> reviewWaitingList) {
 		this.reviewWaitingList = reviewWaitingList;
 	}
 
-	public Iterator<Algorithm> getTestingWaitingList() {
+	public List<Algorithm> getTestingWaitingList() {
 		return testingWaitingList;
 	}
 
-	public void setTestingWaitingList(Iterator<Algorithm> testingWaitingList) {
+	public void setTestingWaitingList(List<Algorithm> testingWaitingList) {
 		this.testingWaitingList = testingWaitingList;
 	}
 
-	public Iterator<Algorithm> getReviewOngoingList() {
+	public List<Algorithm> getReviewOngoingList() {
 		return reviewOngoingList;
 	}
 
-	public void setReviewOngoingList(Iterator<Algorithm> reviewOngoingList) {
+	public void setReviewOngoingList(List<Algorithm> reviewOngoingList) {
 		this.reviewOngoingList = reviewOngoingList;
 	}
 
-	public Iterator<Algorithm> getTestingOngoingList() {
+	public List<Algorithm> getTestingOngoingList() {
 		return testingOngoingList;
 	}
 
-	public void setTestingOngoingList(Iterator<Algorithm> testingOngoingList) {
+	public void setTestingOngoingList(List<Algorithm> testingOngoingList) {
 		this.testingOngoingList = testingOngoingList;
 	}
 
-	public Iterator<Algorithm> getReviewDoneList() {
+	public List<Algorithm> getReviewDoneList() {
 		return reviewDoneList;
 	}
 
-	public void setReviewDoneList(Iterator<Algorithm> reviewDoneList) {
+	public void setReviewDoneList(List<Algorithm> reviewDoneList) {
 		this.reviewDoneList = reviewDoneList;
 	}
 
-	public Iterator<Algorithm> getTestingDoneList() {
+	public List<Algorithm> getTestingDoneList() {
 		return testingDoneList;
 	}
 
-	public void setTestingDoneList(Iterator<Algorithm> testingDoneList) {
+	public void setTestingDoneList(List<Algorithm> testingDoneList) {
 		this.testingDoneList = testingDoneList;
 	}
 
-	public Iterator<Review> getReviews() {
+	public List<Review> getReviews() {
 		return reviews;
 	}
 
-	public void setReviews(Iterator<Review> reviews) {
+	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
 	}
 
@@ -658,27 +782,27 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 		this.length_TestingDoneList = length_TestingDoneList;
 	}
 
-	public Iterator<Testing> getTestings() {
+	public List<Testing> getTestings() {
 		return testings;
 	}
 
-	public void setTestings(Iterator<Testing> testings) {
+	public void setTestings(List<Testing> testings) {
 		this.testings = testings;
 	}
 
-	public Iterator<Algorithm> getRejectList() {
+	public List<Algorithm> getRejectList() {
 		return rejectList;
 	}
 
-	public void setRejectList(Iterator<Algorithm> rejectList) {
+	public void setRejectList(List<Algorithm> rejectList) {
 		this.rejectList = rejectList;
 	}
 
-	public Iterator<Algorithm> getPublishWaitingList() {
+	public List<Algorithm> getPublishWaitingList() {
 		return publishWaitingList;
 	}
 
-	public void setPublishWaitingList(Iterator<Algorithm> publishWaitingList) {
+	public void setPublishWaitingList(List<Algorithm> publishWaitingList) {
 		this.publishWaitingList = publishWaitingList;
 	}
 
@@ -706,11 +830,11 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 		this.currentUser = currentUser;
 	}
 
-	public Iterator<Algorithm> getPublishedList() {
+	public List<Algorithm> getPublishedList() {
 		return publishedList;
 	}
 
-	public void setPublishedList(Iterator<Algorithm> publishedList) {
+	public void setPublishedList(List<Algorithm> publishedList) {
 		this.publishedList = publishedList;
 	}
 
@@ -730,11 +854,11 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 		this.communityService = communityService;
 	}
 
-	public Iterator<Community> getAllComms() {
+	public List<Community> getAllComms() {
 		return allComms;
 	}
 
-	public void setAllComms(Iterator<Community> allComms) {
+	public void setAllComms(List<Community> allComms) {
 		this.allComms = allComms;
 	}
 

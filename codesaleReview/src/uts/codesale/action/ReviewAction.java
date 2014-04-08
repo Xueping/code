@@ -93,7 +93,7 @@ public class ReviewAction extends AbstractAction{
 //		user = (User) ActionContext.getContext().getSession().get("user");
 		user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		
-		Set<Review> reviews = this.getAlgorithmService().getReviewByAlg_Id(alg_id);
+		List<Review> reviews = this.getAlgorithmService().getReviewByAlg_Id(alg_id);
 		for(Review r : reviews) {
 			if(r.getUser().getId() == user.getId()) {
 				this.current_review = r;
