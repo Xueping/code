@@ -13,7 +13,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uts.codesale.beans.Algorithm;
+import uts.codesale.beans.AlgorithmTest;
 import uts.codesale.beans.Review;
 import uts.codesale.beans.User;
 import uts.codesale.commons.AbstractAction;
@@ -29,8 +29,8 @@ public class ReviewAction extends AbstractAction{
 
 	private static final long serialVersionUID = -5294874904579655334L;
 	private static Logger log = LoggerFactory.getLogger(ReviewAction.class);
-	private Iterator<Algorithm> reviewList;
-	private Algorithm algorithm = new Algorithm();
+	private Iterator<AlgorithmTest> reviewList;
+	private AlgorithmTest algorithm = new AlgorithmTest();
 	private long alg_id;
 	private long user_id;
 	private String username;
@@ -179,7 +179,7 @@ public class ReviewAction extends AbstractAction{
 		if (!this.isUserLogin())
 			return INPUT;
 		
-		Algorithm alg = this.getAlgorithmService().get(this.getAlg_id());
+		AlgorithmTest alg = this.getAlgorithmService().get(this.getAlg_id());
 //		user = (User) ActionContext.getContext().getSession().get("user");
 		user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		//edit current review
@@ -337,10 +337,10 @@ public class ReviewAction extends AbstractAction{
 		
 	}
 	
-	public Iterator<Algorithm> getReviewList() {
+	public Iterator<AlgorithmTest> getReviewList() {
 		return reviewList;
 	}
-	public void setReviewList(Iterator<Algorithm> reviewList) {
+	public void setReviewList(Iterator<AlgorithmTest> reviewList) {
 		this.reviewList = reviewList;
 	}
 
@@ -357,11 +357,11 @@ public class ReviewAction extends AbstractAction{
 		this.algorithmService = algorithmService;
 	}
 
-	public Algorithm getAlgorithm() {
+	public AlgorithmTest getAlgorithm() {
 		return algorithm;
 	}
 
-	public void setAlgorithm(Algorithm algorithm) {
+	public void setAlgorithm(AlgorithmTest algorithm) {
 		this.algorithm = algorithm;
 	}
 

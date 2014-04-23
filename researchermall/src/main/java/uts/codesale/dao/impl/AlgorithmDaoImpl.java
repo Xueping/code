@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.hibernate.Session;
 
-import uts.codesale.beans.Algorithm;
+import uts.codesale.beans.AlgorithmTest;
 import uts.codesale.beans.Review;
 import uts.codesale.beans.Testing;
 import uts.codesale.beans.User;
@@ -14,16 +14,16 @@ import uts.codesale.commons.GenericDaoImpl;
 import uts.codesale.dao.AlgorithmDao;
 import uts.codesale.exception.NotFoundException;
 
-public class AlgorithmDaoImpl extends GenericDaoImpl<Algorithm, Long> implements
+public class AlgorithmDaoImpl extends GenericDaoImpl<AlgorithmTest, Long> implements
 		AlgorithmDao {
 
 	public AlgorithmDaoImpl() {
-		super(Algorithm.class);
+		super(AlgorithmTest.class);
 	}
 
 	@SuppressWarnings("unchecked")
 	public boolean isAlgorithmExists(String title) {
-		List<Algorithm> list = (List<Algorithm>)getHibernateTemplate().find(
+		List<AlgorithmTest> list = (List<AlgorithmTest>)getHibernateTemplate().find(
 				"from Algorithm where name=?", title);
 		if (list.size() > 0)
 			return true;
@@ -34,8 +34,8 @@ public class AlgorithmDaoImpl extends GenericDaoImpl<Algorithm, Long> implements
 	
 
 	@SuppressWarnings("unchecked")
-	public Algorithm loadAlgorithmByName(String title) throws NotFoundException {
-		List<Algorithm> items = (List<Algorithm>)getHibernateTemplate().find(
+	public AlgorithmTest loadAlgorithmByName(String title) throws NotFoundException {
+		List<AlgorithmTest> items = (List<AlgorithmTest>)getHibernateTemplate().find(
 				"from Algorithm where name = ? order by submit_date desc , alg_ID DESC ", title);
 		if (items == null || items.isEmpty()) {
 			throw new NotFoundException("item '" + title + "' not found...");
@@ -45,8 +45,8 @@ public class AlgorithmDaoImpl extends GenericDaoImpl<Algorithm, Long> implements
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Algorithm> loadAlgorithmByUser(Set<User> users) throws NotFoundException {
-		List<Algorithm> items = (List<Algorithm>)getHibernateTemplate().find(
+	public List<AlgorithmTest> loadAlgorithmByUser(Set<User> users) throws NotFoundException {
+		List<AlgorithmTest> items = (List<AlgorithmTest>)getHibernateTemplate().find(
 				"from Algorithm where users = ? order by submit_date desc , alg_ID DESC ", users);
 		if (items == null || items.isEmpty()) {
 			throw new NotFoundException("item '" + users + "' not found...");
@@ -56,28 +56,28 @@ public class AlgorithmDaoImpl extends GenericDaoImpl<Algorithm, Long> implements
 	}
 
 	
-	public List<Algorithm> loadWaitingAdminAlgorithms(){
+	public List<AlgorithmTest> loadWaitingAdminAlgorithms(){
 		
 		@SuppressWarnings("unchecked")
-		List<Algorithm> files = (List<Algorithm>)getHibernateTemplate().find(
+		List<AlgorithmTest> files = (List<AlgorithmTest>)getHibernateTemplate().find(
 				"from Algorithm where admin_result ='Waiting' and current_status='New' order by submit_date desc , alg_ID DESC ");
 		
 		return files;
 	}
 	
 	@Override
-	public List<Algorithm> loadReviewAlgorithms(String status) {
+	public List<AlgorithmTest> loadReviewAlgorithms(String status) {
 		@SuppressWarnings("unchecked")
-		List<Algorithm> files = (List<Algorithm>)getHibernateTemplate().find(
+		List<AlgorithmTest> files = (List<AlgorithmTest>)getHibernateTemplate().find(
 				"from Algorithm where admin_result ='Accept' and review_result='"+status+"' order by submit_date desc , alg_ID DESC ");
 		
 		return files;
 	}
 	
 	@Override
-	public List<Algorithm> loadReviewAlgorithms(String status, Long comm_id) {
+	public List<AlgorithmTest> loadReviewAlgorithms(String status, Long comm_id) {
 		@SuppressWarnings("unchecked")
-		List<Algorithm> files = (List<Algorithm>)getHibernateTemplate().find(
+		List<AlgorithmTest> files = (List<AlgorithmTest>)getHibernateTemplate().find(
 				"from Algorithm where admin_result ='Accept' and review_result='"+status+"'  and comm_id= "+ comm_id+" order by submit_date desc , alg_ID DESC ");
 		
 		return files;
@@ -85,17 +85,17 @@ public class AlgorithmDaoImpl extends GenericDaoImpl<Algorithm, Long> implements
 
 	
 	@Override
-	public List<Algorithm> loadTestingAlgorithms(String status) {
+	public List<AlgorithmTest> loadTestingAlgorithms(String status) {
 		@SuppressWarnings("unchecked")
-		List<Algorithm> files = (List<Algorithm>)getHibernateTemplate().find(
+		List<AlgorithmTest> files = (List<AlgorithmTest>)getHibernateTemplate().find(
 				"from Algorithm where review_result ='Accept' and test_results='"+status+"' order by submit_date desc , alg_ID DESC ");
 		return files;
 	}
 	
 	@Override
-	public List<Algorithm> loadTestingAlgorithms(String status, Long comm_id) {
+	public List<AlgorithmTest> loadTestingAlgorithms(String status, Long comm_id) {
 		@SuppressWarnings("unchecked")
-		List<Algorithm> files = (List<Algorithm>)getHibernateTemplate().find(
+		List<AlgorithmTest> files = (List<AlgorithmTest>)getHibernateTemplate().find(
 				"from Algorithm where review_result ='Accept' and test_results='"+status+"' and comm_id= "+ comm_id+" order by submit_date desc , alg_ID DESC ");
 		return files;
 	}
@@ -105,7 +105,7 @@ public class AlgorithmDaoImpl extends GenericDaoImpl<Algorithm, Long> implements
 	@Override
 	public List<Review> loadReviewByAlg_Id(Long alg_id) {
 		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
-		Algorithm alg =(Algorithm)session.load(Algorithm.class, alg_id); 
+		AlgorithmTest alg =(AlgorithmTest)session.load(AlgorithmTest.class, alg_id); 
 		Set<Review> review =alg.getReviews();
 		List<Review> list = new ArrayList<Review>();
 		list.addAll(review);
@@ -115,64 +115,64 @@ public class AlgorithmDaoImpl extends GenericDaoImpl<Algorithm, Long> implements
 	@Override
 	public List<Testing> loadTestingByAlg_Id(Long alg_id) {
 		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
-		Algorithm alg =(Algorithm)session.load(Algorithm.class, alg_id); 
+		AlgorithmTest alg =(AlgorithmTest)session.load(AlgorithmTest.class, alg_id); 
 		Set<Testing> testing =alg.getTestings();
 		List<Testing> list = new ArrayList<Testing>();
 		list.addAll(testing);
 		return list;
 	}
 	
-	public List<Algorithm> loadResubmitAlgorithms(){
+	public List<AlgorithmTest> loadResubmitAlgorithms(){
 		@SuppressWarnings("unchecked")
-		List<Algorithm> files = (List<Algorithm>)getHibernateTemplate().find(
+		List<AlgorithmTest> files = (List<AlgorithmTest>)getHibernateTemplate().find(
 				"from Algorithm where resubmit ='true' ORDER BY resubmit_date DESC , alg_ID DESC ");
 		return files;
 	}
 	
 	@Override
-	public List<Algorithm> getAll() {
+	public List<AlgorithmTest> getAll() {
 		@SuppressWarnings("unchecked")
-		List<Algorithm> files = (List<Algorithm>)getHibernateTemplate().find(
+		List<AlgorithmTest> files = (List<AlgorithmTest>)getHibernateTemplate().find(
 				"from Algorithm ORDER BY submit_date DESC, alg_ID DESC ");
 		return files;
 	}
 
 	@Override
-	public List<Algorithm> loadPublishAlgorithms(String published) {
+	public List<AlgorithmTest> loadPublishAlgorithms(String published) {
 		@SuppressWarnings("unchecked")
-		List<Algorithm> files = (List<Algorithm>)getHibernateTemplate().find(
+		List<AlgorithmTest> files = (List<AlgorithmTest>)getHibernateTemplate().find(
 				"from Algorithm where test_results ='Accept' and publish='"+published+"' ORDER BY submit_date DESC , alg_ID DESC ");
 		return files;
 	}
 	
 	@Override
-	public List<Algorithm> loadPublishAlgorithms(String published, Long comm_id) {
+	public List<AlgorithmTest> loadPublishAlgorithms(String published, Long comm_id) {
 		@SuppressWarnings("unchecked")
-		List<Algorithm> files = (List<Algorithm>)getHibernateTemplate().find(
+		List<AlgorithmTest> files = (List<AlgorithmTest>)getHibernateTemplate().find(
 				"from Algorithm where test_results ='Accept' and publish='"+published+"' and comm_id= "+ comm_id+" ORDER BY submit_date DESC , alg_ID DESC ");
 		return files;
 	}
 
 	@Override
-	public List<Algorithm> loadRejectAlgorithms() {
+	public List<AlgorithmTest> loadRejectAlgorithms() {
 		@SuppressWarnings("unchecked")
-		List<Algorithm> files = (List<Algorithm>)getHibernateTemplate().find(
+		List<AlgorithmTest> files = (List<AlgorithmTest>)getHibernateTemplate().find(
 				"from Algorithm where test_results ='Reject' or review_result='Reject' ORDER BY submit_date DESC , alg_ID DESC ");
 		return files;
 	}
 	
 	@Override
-	public List<Algorithm> loadRejectAlgorithms(Long comm_id) {
+	public List<AlgorithmTest> loadRejectAlgorithms(Long comm_id) {
 		@SuppressWarnings("unchecked")
-		List<Algorithm> files = (List<Algorithm>)getHibernateTemplate().find(
+		List<AlgorithmTest> files = (List<AlgorithmTest>)getHibernateTemplate().find(
 				"from Algorithm where (test_results ='Reject' or review_result='Reject') and comm_id= "+ comm_id+" ORDER BY submit_date DESC , alg_ID DESC ");
 		return files;
 	}
 
 	@Override
-	public List<Algorithm> loadAlgorithmsByCommunity(Long comm_id) {
+	public List<AlgorithmTest> loadAlgorithmsByCommunity(Long comm_id) {
 		@SuppressWarnings("unchecked")
-		List<Algorithm> files = (List<Algorithm>)getHibernateTemplate().find(
+		List<AlgorithmTest> files = (List<AlgorithmTest>)getHibernateTemplate().find(
 				"from Algorithm where comm_id= "+ comm_id+" ORDER BY submit_date DESC , alg_ID DESC ");
 		return files;
 	}

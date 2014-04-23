@@ -22,7 +22,7 @@ public class Testing extends AGenericObject implements Serializable {
 	
 	private Long id;
 	private User user;
-	private Algorithm alg;
+	private AlgorithmTest alg;
 	private String status;
 	private String results;
 	private String testFile;
@@ -54,13 +54,13 @@ public class Testing extends AGenericObject implements Serializable {
 		this.user = user;
 	}
 
-	@ManyToOne(targetEntity = Algorithm.class,fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = AlgorithmTest.class,fetch = FetchType.LAZY)
 	@JoinColumn(name = "alg_ID", nullable = false)
-	public Algorithm getAlg() {
+	public AlgorithmTest getAlg() {
 		return alg;
 	}
 
-	public void setAlg(Algorithm alg) {
+	public void setAlg(AlgorithmTest alg) {
 		this.alg = alg;
 	}
 

@@ -5,7 +5,7 @@ import java.util.List;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
-import uts.codesale.beans.Algorithm;
+import uts.codesale.beans.AlgorithmTest;
 import uts.codesale.beans.Review;
 import uts.codesale.beans.Testing;
 import uts.codesale.beans.User;
@@ -27,11 +27,11 @@ public interface UserDao extends IGenericDao<User, Long> {
 
 	public boolean isEmailExists(String email);
 	
-	public List<Algorithm> loadAlgorithmsByUserID(Long UserID) ;
+	public List<AlgorithmTest> loadAlgorithmsByUserID(Long UserID) ;
 	
-	public List<Algorithm> loadReviewAlgorithmsByUserID(Long UserID);
+	public List<AlgorithmTest> loadReviewAlgorithmsByUserID(Long UserID);
 	
-	public List<Algorithm> loadTestingAlgorithmsByUserID(Long UserID);
+	public List<AlgorithmTest> loadTestingAlgorithmsByUserID(Long UserID);
 	
 	public List<Review> loadReviewsByUserID(Long UserID);
 	public List<Testing> loadTestingsByUserID(Long UserID);

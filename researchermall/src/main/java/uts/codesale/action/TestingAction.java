@@ -13,7 +13,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uts.codesale.beans.Algorithm;
+import uts.codesale.beans.AlgorithmTest;
 import uts.codesale.beans.Review;
 import uts.codesale.beans.Testing;
 import uts.codesale.beans.User;
@@ -30,13 +30,13 @@ public class TestingAction extends AbstractAction{
 
 	private static final long serialVersionUID = -5294874904579655334L;
 	private static Logger log = LoggerFactory.getLogger(TestingAction.class);
-	private Iterator<Algorithm> reviewList;
-	private Algorithm algorithm = new Algorithm();
+	private Iterator<AlgorithmTest> reviewList;
+	private AlgorithmTest algorithm = new AlgorithmTest();
 	private long alg_id;
 	private long user_id;
 	private boolean test;
 	private Map<Long,String> userMap = new HashMap<Long,String>();
-	private Iterator<Algorithm> testingList;
+	private Iterator<AlgorithmTest> testingList;
 	private User user;
 	private UserService userService;
 	private TestingService testingService;
@@ -117,7 +117,7 @@ public class TestingAction extends AbstractAction{
 		if (!this.isUserLogin())
 			return INPUT;
 		
-		Algorithm agl = this.getAlgorithmService().get(this.getAlg_id());
+		AlgorithmTest agl = this.getAlgorithmService().get(this.getAlg_id());
 		Set<Testing> tests = agl.getTestings();
 
 		for(long userId : testers) {
@@ -151,7 +151,7 @@ public class TestingAction extends AbstractAction{
 		if (!this.isUserLogin())
 			return INPUT;
 		
-		Algorithm alg = this.getAlgorithmService().get(this.getAlg_id());
+		AlgorithmTest alg = this.getAlgorithmService().get(this.getAlg_id());
 //		user = (User) ActionContext.getContext().getSession().get("user");
 		user = this.userService.getUserByUsername(SessionUserDetailsUtil.getLoginUserName());
 		Set<Testing> testings = alg.getTestings();
@@ -301,10 +301,10 @@ public class TestingAction extends AbstractAction{
 	}
 
 	
-	public Iterator<Algorithm> getReviewList() {
+	public Iterator<AlgorithmTest> getReviewList() {
 		return reviewList;
 	}
-	public void setReviewList(Iterator<Algorithm> reviewList) {
+	public void setReviewList(Iterator<AlgorithmTest> reviewList) {
 		this.reviewList = reviewList;
 	}
 
@@ -322,22 +322,22 @@ public class TestingAction extends AbstractAction{
 	}
 
 
-	public Iterator<Algorithm> getTestingList() {
+	public Iterator<AlgorithmTest> getTestingList() {
 		return testingList;
 	}
 
 
-	public void setTestingList(Iterator<Algorithm> testingList) {
+	public void setTestingList(Iterator<AlgorithmTest> testingList) {
 		this.testingList = testingList;
 	}
 
 
 
-	public Algorithm getAlgorithm() {
+	public AlgorithmTest getAlgorithm() {
 		return algorithm;
 	}
 
-	public void setAlgorithm(Algorithm algorithm) {
+	public void setAlgorithm(AlgorithmTest algorithm) {
 		this.algorithm = algorithm;
 	}
 

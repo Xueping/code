@@ -43,7 +43,7 @@ public class User extends AGenericObject implements Serializable {
 	private String research;
 	private String organization;
 	private String country;
-	private Set<Algorithm> algorithms = new HashSet<Algorithm>();
+	private Set<AlgorithmTest> algorithms = new HashSet<AlgorithmTest>();
 	private Set<Review> reviews = new HashSet<Review>();
 	private Set<Testing> testings = new HashSet<Testing>();
 	private String disable;
@@ -184,12 +184,12 @@ public class User extends AGenericObject implements Serializable {
 		this.version = version;
 	}
 
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "users", targetEntity = Algorithm.class)
-	public Set<Algorithm> getAlgorithms() {
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "users", targetEntity = AlgorithmTest.class)
+	public Set<AlgorithmTest> getAlgorithms() {
 		return algorithms;
 	}
 
-	public void setAlgorithms(Set<Algorithm> algorithms) {
+	public void setAlgorithms(Set<AlgorithmTest> algorithms) {
 		this.algorithms = algorithms;
 	}
 

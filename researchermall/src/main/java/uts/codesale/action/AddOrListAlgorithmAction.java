@@ -17,7 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import uts.codesale.beans.Algorithm;
+import uts.codesale.beans.AlgorithmTest;
 import uts.codesale.beans.Community;
 import uts.codesale.beans.Review;
 import uts.codesale.beans.Testing;
@@ -43,8 +43,8 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 	private String alg_related_fileFileName;
 	private File alg_code_file;
 	private String alg_code_fileFileName;
-	private Algorithm algorithm = new Algorithm();
-	private List<Algorithm> algorithms;
+	private AlgorithmTest algorithm = new AlgorithmTest();
+	private List<AlgorithmTest> algorithms;
 	
 	private AlgorithmService algorithmService;
 	private CommunityService communityService;
@@ -61,17 +61,17 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 	private Long contentLength;
 	private String type;
 	
-	private List<Algorithm> waitingAdminList;
-	private List<Algorithm> resubmitList;
-	private List<Algorithm> reviewWaitingList;
-	private List<Algorithm> testingWaitingList;
-	private List<Algorithm> reviewOngoingList;
-	private List<Algorithm> testingOngoingList;
-	private List<Algorithm> reviewDoneList;
-	private List<Algorithm> testingDoneList;
-	private List<Algorithm> rejectList;
-	private List<Algorithm> publishWaitingList;
-	private List<Algorithm> publishedList;
+	private List<AlgorithmTest> waitingAdminList;
+	private List<AlgorithmTest> resubmitList;
+	private List<AlgorithmTest> reviewWaitingList;
+	private List<AlgorithmTest> testingWaitingList;
+	private List<AlgorithmTest> reviewOngoingList;
+	private List<AlgorithmTest> testingOngoingList;
+	private List<AlgorithmTest> reviewDoneList;
+	private List<AlgorithmTest> testingDoneList;
+	private List<AlgorithmTest> rejectList;
+	private List<AlgorithmTest> publishWaitingList;
+	private List<AlgorithmTest> publishedList;
 	
 	private int length_WaitingAdminList;
 	private int length_ResubmitList;
@@ -85,9 +85,9 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 	private int length_PublishWaitingList;
 	private int length_PublishedList;
 	
-	private List<Algorithm> myAllAlgorithms;
-	private List<Algorithm> myReviewAlgorithms;
-	private List<Algorithm> myTestingAlgorithms;
+	private List<AlgorithmTest> myAllAlgorithms;
+	private List<AlgorithmTest> myReviewAlgorithms;
+	private List<AlgorithmTest> myTestingAlgorithms;
 	
 	private String errorMsg;
 	private String baseDir ;
@@ -97,19 +97,19 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 	
 	private User currentUser;
 
-	public Algorithm getAlgorithm() {
+	public AlgorithmTest getAlgorithm() {
 		return algorithm;
 	}
 
-	public void setAlgorithm(Algorithm algorithm) {
+	public void setAlgorithm(AlgorithmTest algorithm) {
 		this.algorithm = algorithm;
 	}
 
-	public List<Algorithm> getAlgorithms() {
+	public List<AlgorithmTest> getAlgorithms() {
 		return algorithms;
 	}
 
-	public void setAlgorithms(List<Algorithm> algorithms) {
+	public void setAlgorithms(List<AlgorithmTest> algorithms) {
 		this.algorithms = algorithms;
 	}
 
@@ -558,11 +558,11 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 		this.acceptalbe = acceptalbe;
 	}
 
-	public List<Algorithm> getWaitingAdminList() {
+	public List<AlgorithmTest> getWaitingAdminList() {
 		return waitingAdminList;
 	}
 
-	public void setWaitingAdminList(List<Algorithm> waitingAdminList) {
+	public void setWaitingAdminList(List<AlgorithmTest> waitingAdminList) {
 		this.waitingAdminList = waitingAdminList;
 	}
 
@@ -582,27 +582,27 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 		this.length_WaitingAdminList = length_WaitingAdminList;
 	}
 
-	public List<Algorithm> getMyAllAlgorithms() {
+	public List<AlgorithmTest> getMyAllAlgorithms() {
 		return myAllAlgorithms;
 	}
 
-	public void setMyAllAlgorithms(List<Algorithm> myAllAlgorithms) {
+	public void setMyAllAlgorithms(List<AlgorithmTest> myAllAlgorithms) {
 		this.myAllAlgorithms = myAllAlgorithms;
 	}
 
-	public List<Algorithm> getMyReviewAlgorithms() {
+	public List<AlgorithmTest> getMyReviewAlgorithms() {
 		return myReviewAlgorithms;
 	}
 
-	public void setMyReviewAlgorithms(List<Algorithm> myReviewAlgorithms) {
+	public void setMyReviewAlgorithms(List<AlgorithmTest> myReviewAlgorithms) {
 		this.myReviewAlgorithms = myReviewAlgorithms;
 	}
 
-	public List<Algorithm> getMyTestingAlgorithms() {
+	public List<AlgorithmTest> getMyTestingAlgorithms() {
 		return myTestingAlgorithms;
 	}
 
-	public void setMyTestingAlgorithms(List<Algorithm> myTestingAlgorithms) {
+	public void setMyTestingAlgorithms(List<AlgorithmTest> myTestingAlgorithms) {
 		this.myTestingAlgorithms = myTestingAlgorithms;
 	}
 
@@ -662,11 +662,11 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 		this.algorithmBKPService = algorithmBKPService;
 	}
 
-	public List<Algorithm> getResubmitList() {
+	public List<AlgorithmTest> getResubmitList() {
 		return resubmitList;
 	}
 
-	public void setResubmitList(List<Algorithm> resubmitList) {
+	public void setResubmitList(List<AlgorithmTest> resubmitList) {
 		this.resubmitList = resubmitList;
 	}
 
@@ -678,51 +678,51 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 		this.length_ResubmitList = length_ResubmitList;
 	}
 
-	public List<Algorithm> getReviewWaitingList() {
+	public List<AlgorithmTest> getReviewWaitingList() {
 		return reviewWaitingList;
 	}
 
-	public void setReviewWaitingList(List<Algorithm> reviewWaitingList) {
+	public void setReviewWaitingList(List<AlgorithmTest> reviewWaitingList) {
 		this.reviewWaitingList = reviewWaitingList;
 	}
 
-	public List<Algorithm> getTestingWaitingList() {
+	public List<AlgorithmTest> getTestingWaitingList() {
 		return testingWaitingList;
 	}
 
-	public void setTestingWaitingList(List<Algorithm> testingWaitingList) {
+	public void setTestingWaitingList(List<AlgorithmTest> testingWaitingList) {
 		this.testingWaitingList = testingWaitingList;
 	}
 
-	public List<Algorithm> getReviewOngoingList() {
+	public List<AlgorithmTest> getReviewOngoingList() {
 		return reviewOngoingList;
 	}
 
-	public void setReviewOngoingList(List<Algorithm> reviewOngoingList) {
+	public void setReviewOngoingList(List<AlgorithmTest> reviewOngoingList) {
 		this.reviewOngoingList = reviewOngoingList;
 	}
 
-	public List<Algorithm> getTestingOngoingList() {
+	public List<AlgorithmTest> getTestingOngoingList() {
 		return testingOngoingList;
 	}
 
-	public void setTestingOngoingList(List<Algorithm> testingOngoingList) {
+	public void setTestingOngoingList(List<AlgorithmTest> testingOngoingList) {
 		this.testingOngoingList = testingOngoingList;
 	}
 
-	public List<Algorithm> getReviewDoneList() {
+	public List<AlgorithmTest> getReviewDoneList() {
 		return reviewDoneList;
 	}
 
-	public void setReviewDoneList(List<Algorithm> reviewDoneList) {
+	public void setReviewDoneList(List<AlgorithmTest> reviewDoneList) {
 		this.reviewDoneList = reviewDoneList;
 	}
 
-	public List<Algorithm> getTestingDoneList() {
+	public List<AlgorithmTest> getTestingDoneList() {
 		return testingDoneList;
 	}
 
-	public void setTestingDoneList(List<Algorithm> testingDoneList) {
+	public void setTestingDoneList(List<AlgorithmTest> testingDoneList) {
 		this.testingDoneList = testingDoneList;
 	}
 
@@ -790,19 +790,19 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 		this.testings = testings;
 	}
 
-	public List<Algorithm> getRejectList() {
+	public List<AlgorithmTest> getRejectList() {
 		return rejectList;
 	}
 
-	public void setRejectList(List<Algorithm> rejectList) {
+	public void setRejectList(List<AlgorithmTest> rejectList) {
 		this.rejectList = rejectList;
 	}
 
-	public List<Algorithm> getPublishWaitingList() {
+	public List<AlgorithmTest> getPublishWaitingList() {
 		return publishWaitingList;
 	}
 
-	public void setPublishWaitingList(List<Algorithm> publishWaitingList) {
+	public void setPublishWaitingList(List<AlgorithmTest> publishWaitingList) {
 		this.publishWaitingList = publishWaitingList;
 	}
 
@@ -830,11 +830,11 @@ public class AddOrListAlgorithmAction extends AbstractAction{
 		this.currentUser = currentUser;
 	}
 
-	public List<Algorithm> getPublishedList() {
+	public List<AlgorithmTest> getPublishedList() {
 		return publishedList;
 	}
 
-	public void setPublishedList(List<Algorithm> publishedList) {
+	public void setPublishedList(List<AlgorithmTest> publishedList) {
 		this.publishedList = publishedList;
 	}
 
