@@ -7,7 +7,7 @@ import java.util.Set;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.hibernate.Session;
 
-import uts.codesale.beans.AlgorithmTest;
+import uts.codesale.beans.Algorithm;
 import uts.codesale.beans.Review;
 import uts.codesale.beans.Testing;
 import uts.codesale.beans.User;
@@ -120,12 +120,12 @@ public class UserDaoImpl extends GenericDaoImpl<User, Long> implements UserDao {
 			}
 	}
 	
-	public List<AlgorithmTest> loadAlgorithmsByUserID(Long UserID)  {
+	public List<Algorithm> loadAlgorithmsByUserID(Long UserID)  {
 		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
 		User user =(User)session.load(User.class, UserID); 
-        Set<AlgorithmTest> sets=user.getAlgorithms();
-        List<AlgorithmTest> list = new ArrayList<AlgorithmTest>();
-        for(AlgorithmTest a : sets) {
+        Set<Algorithm> sets=user.getAlgorithms();
+        List<Algorithm> list = new ArrayList<Algorithm>();
+        for(Algorithm a : sets) {
         	list.add(a);
         }
 		
@@ -133,28 +133,28 @@ public class UserDaoImpl extends GenericDaoImpl<User, Long> implements UserDao {
 		
 	}
 	
-	public List<AlgorithmTest> loadReviewAlgorithmsByUserID(Long UserID){
+	public List<Algorithm> loadReviewAlgorithmsByUserID(Long UserID){
 		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
 		User user =(User)session.load(User.class, UserID); 
 		Set<Review> reviewSets=user.getReviews();
 		
-        List<AlgorithmTest> sets = new ArrayList<AlgorithmTest>();
+        List<Algorithm> sets = new ArrayList<Algorithm>();
         for(Review review : reviewSets){
-        	AlgorithmTest alg = review.getAlg();
+        	Algorithm alg = review.getAlg();
         	alg.setReview(review);
         	sets.add(alg);
         }
 		return sets;
 	}
 	
-	public List<AlgorithmTest> loadTestingAlgorithmsByUserID(Long UserID){
+	public List<Algorithm> loadTestingAlgorithmsByUserID(Long UserID){
 		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
 		User user =(User)session.load(User.class, UserID); 
 		Set<Testing> testingSets=user.getTestings();
 		
-        List<AlgorithmTest> sets = new ArrayList<AlgorithmTest>();
+        List<Algorithm> sets = new ArrayList<Algorithm>();
         for(Testing test : testingSets){
-        	AlgorithmTest alg = test.getAlg();
+        	Algorithm alg = test.getAlg();
         	alg.setTesting(test);
         	sets.add(alg);
         }

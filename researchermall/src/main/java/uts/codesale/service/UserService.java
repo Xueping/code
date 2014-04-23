@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 
-import uts.codesale.beans.AlgorithmTest;
+import uts.codesale.beans.Algorithm;
 import uts.codesale.beans.Review;
 import uts.codesale.beans.Testing;
 import uts.codesale.beans.User;
@@ -37,15 +37,15 @@ public interface UserService extends IGenericService<User, Long> {
 
 	public boolean userPrivilegeValide(User user, String pageLink);
 	
-	public List<AlgorithmTest> getAlgorithmsByUserID(Long UserID);
+	public List<Algorithm> getAlgorithmsByUserID(Long UserID);
 
 	public List<User> getUsersByAuthority() throws UsernameNotFoundException;
 	
 	public List<User> getUsersByStartAndEndTime(String startTime, String endTime)throws NotFoundException;
 	
-	public List<AlgorithmTest> getReviewAlgorithmsByUserID(Long UserID);
+	public List<Algorithm> getReviewAlgorithmsByUserID(Long UserID);
 	
-	public List<AlgorithmTest> getTestingAlgorithmsByUserID(Long UserID);
+	public List<Algorithm> getTestingAlgorithmsByUserID(Long UserID);
 	
 	public List<Review> getReviewsByUserID(Long UserID);
 	public List<Testing> getTestingsByUserID(Long UserID);

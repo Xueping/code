@@ -10,7 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uts.codesale.beans.AlgorithmTest;
+import uts.codesale.beans.Algorithm;
 import uts.codesale.beans.AlgorithmBKP;
 import uts.codesale.beans.Community;
 import uts.codesale.beans.User;
@@ -31,8 +31,8 @@ public class EditOrDeleteAlgorithmAction extends AbstractAction {
 	private Long comm_id;
 	private String adminResult;
 	private String adminComment;
-	private AlgorithmTest algorithm = new AlgorithmTest();
-	private Iterator<AlgorithmTest> algorithms;
+	private Algorithm algorithm = new Algorithm();
+	private Iterator<Algorithm> algorithms;
 	private AlgorithmService algorithmService;
 	private UserService userService;
 	private AlgorithmBKPService algorithmBKPService;
@@ -68,19 +68,19 @@ public class EditOrDeleteAlgorithmAction extends AbstractAction {
 
 	
 
-	public AlgorithmTest getAlgorithm() {
+	public Algorithm getAlgorithm() {
 		return algorithm;
 	}
 
-	public void setAlgorithm(AlgorithmTest algorithm) {
+	public void setAlgorithm(Algorithm algorithm) {
 		this.algorithm = algorithm;
 	}
 
-	public Iterator<AlgorithmTest> getAlgorithms() {
+	public Iterator<Algorithm> getAlgorithms() {
 		return algorithms;
 	}
 
-	public void setAlgorithms(Iterator<AlgorithmTest> algorithms) {
+	public void setAlgorithms(Iterator<Algorithm> algorithms) {
 		this.algorithms = algorithms;
 	}
 
@@ -192,7 +192,7 @@ public class EditOrDeleteAlgorithmAction extends AbstractAction {
 		if(adminResult.equalsIgnoreCase("Accept")){
 			Community com = this.communityService.get(this.comm_id);
 			this.algorithm.setCommunity(com);
-			Set<AlgorithmTest> agls = com.getAlgorithms();
+			Set<Algorithm> agls = com.getAlgorithms();
 			agls.add(algorithm);
 			this.communityService.save(com);
 		}
@@ -300,7 +300,7 @@ public class EditOrDeleteAlgorithmAction extends AbstractAction {
 		this.userService = userService;
 	}
 
-	public static AlgorithmBKP transtoAlgorithmBKP(AlgorithmTest alg) {
+	public static AlgorithmBKP transtoAlgorithmBKP(Algorithm alg) {
 		AlgorithmBKP alg_bkp = new AlgorithmBKP();
 		alg_bkp.setAlg_ID(alg.getAlg_ID());
 		alg_bkp.setAlg_name(alg.getAlg_name());

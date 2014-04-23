@@ -22,7 +22,7 @@ public class Review extends AGenericObject implements Serializable {
 	
 	private Long id;
 	private User user = new User();
-	private AlgorithmTest alg = new AlgorithmTest();
+	private Algorithm alg = new Algorithm();
 	private String status;
 	private String results;
 	private String reviewFile;
@@ -55,13 +55,13 @@ public class Review extends AGenericObject implements Serializable {
 		this.user = user;
 	}
 
-	@ManyToOne(targetEntity = AlgorithmTest.class,fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = Algorithm.class,fetch = FetchType.LAZY)
 	@JoinColumn(name = "alg_ID", nullable = false)
-	public AlgorithmTest getAlg() {
+	public Algorithm getAlg() {
 		return alg;
 	}
 
-	public void setAlg(AlgorithmTest alg) {
+	public void setAlg(Algorithm alg) {
 		this.alg = alg;
 	}
 

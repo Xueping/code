@@ -32,7 +32,7 @@ public class Community extends AGenericObject implements Serializable {
 	private String admin;
 	private Set<User> users = new HashSet<User>();
 	private Set<User> admins = new HashSet<User>();
-	private Set<AlgorithmTest> algorithms = new HashSet<AlgorithmTest>();
+	private Set<Algorithm> algorithms = new HashSet<Algorithm>();
 	
 	
 	
@@ -87,12 +87,12 @@ public class Community extends AGenericObject implements Serializable {
 		this.admins = admins;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY,targetEntity = AlgorithmTest.class)
-	public Set<AlgorithmTest> getAlgorithms() {
+	@OneToMany(fetch = FetchType.LAZY,targetEntity = Algorithm.class)
+	public Set<Algorithm> getAlgorithms() {
 		return algorithms;
 	}
 
-	public void setAlgorithms(Set<AlgorithmTest> algorithms) {
+	public void setAlgorithms(Set<Algorithm> algorithms) {
 		this.algorithms = algorithms;
 	}
 

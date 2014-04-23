@@ -7,7 +7,7 @@ import javax.persistence.EntityExistsException;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import uts.codesale.beans.AlgorithmTest;
+import uts.codesale.beans.Algorithm;
 import uts.codesale.beans.Review;
 import uts.codesale.beans.Testing;
 import uts.codesale.beans.User;
@@ -102,16 +102,16 @@ public class UserServiceImpl extends GenericServiceImpl<User, Long> implements
 	}
 	
 
-	public List<AlgorithmTest> getAlgorithmsByUserID(Long UserID){
+	public List<Algorithm> getAlgorithmsByUserID(Long UserID){
 	
 		return  this.userDao.loadAlgorithmsByUserID(UserID);
 	}
 	
-	public List<AlgorithmTest> getReviewAlgorithmsByUserID(Long UserID){
+	public List<Algorithm> getReviewAlgorithmsByUserID(Long UserID){
 		return this.userDao.loadReviewAlgorithmsByUserID(UserID);
 	}
 	
-	public List<AlgorithmTest> getTestingAlgorithmsByUserID(Long UserID){
+	public List<Algorithm> getTestingAlgorithmsByUserID(Long UserID){
 		return this.userDao.loadTestingAlgorithmsByUserID(UserID);
 	}
 	

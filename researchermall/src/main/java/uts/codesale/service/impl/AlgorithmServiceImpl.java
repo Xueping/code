@@ -3,7 +3,7 @@ package uts.codesale.service.impl;
 import java.util.List;
 import java.util.Set;
 
-import uts.codesale.beans.AlgorithmTest;
+import uts.codesale.beans.Algorithm;
 import uts.codesale.beans.Review;
 import uts.codesale.beans.Testing;
 import uts.codesale.beans.User;
@@ -12,7 +12,7 @@ import uts.codesale.dao.AlgorithmDao;
 import uts.codesale.exception.NotFoundException;
 import uts.codesale.service.AlgorithmService;
 
-public class AlgorithmServiceImpl extends GenericServiceImpl<AlgorithmTest, Long>
+public class AlgorithmServiceImpl extends GenericServiceImpl<Algorithm, Long>
 		implements AlgorithmService {
 
 	private AlgorithmDao itemDao;
@@ -22,11 +22,11 @@ public class AlgorithmServiceImpl extends GenericServiceImpl<AlgorithmTest, Long
 		this.itemDao = itemDao;
 	}
 
-	public List<AlgorithmTest> getAllAlgorithms() {
+	public List<Algorithm> getAllAlgorithms() {
 		return itemDao.getAll();
 	}
 
-	public AlgorithmTest getAlgorithmByName(String name) throws NotFoundException {
+	public Algorithm getAlgorithmByName(String name) throws NotFoundException {
 		return itemDao.loadAlgorithmByName(name);
 	}
 
@@ -36,18 +36,18 @@ public class AlgorithmServiceImpl extends GenericServiceImpl<AlgorithmTest, Long
 	}
 
 	@Override
-	public List<AlgorithmTest> getAlgorithmByUser(Set<User> users) throws NotFoundException {
+	public List<Algorithm> getAlgorithmByUser(Set<User> users) throws NotFoundException {
 		return itemDao.loadAlgorithmByUser(users);
 	}
 	
-	public List<AlgorithmTest> getWaitingAdminAlgorithms() {
+	public List<Algorithm> getWaitingAdminAlgorithms() {
 		return this.itemDao.loadWaitingAdminAlgorithms();
 	}
 	
-	public List<AlgorithmTest> getReviewAlgorithms(String status) {
+	public List<Algorithm> getReviewAlgorithms(String status) {
 		return this.itemDao.loadReviewAlgorithms(status);
 	}
-	public List<AlgorithmTest> getTestingAlgorithms(String status) {
+	public List<Algorithm> getTestingAlgorithms(String status) {
 		return this.itemDao.loadTestingAlgorithms(status);
 	}
 
@@ -60,42 +60,42 @@ public class AlgorithmServiceImpl extends GenericServiceImpl<AlgorithmTest, Long
 	public List<Testing> getTestingByAlg_Id(Long alg_id) {
 		return (List<Testing>) this.itemDao.loadTestingByAlg_Id(alg_id);
 	}
-	public List<AlgorithmTest> getWaitingResubmitAlgorithms(){
+	public List<Algorithm> getWaitingResubmitAlgorithms(){
 		return this.itemDao.loadResubmitAlgorithms();
 	}
 
 	@Override
-	public List<AlgorithmTest> getPublishAlgorithms(String published) {
+	public List<Algorithm> getPublishAlgorithms(String published) {
 		return this.itemDao.loadPublishAlgorithms(published);
 	}
 
 	@Override
-	public List<AlgorithmTest> getRejectAlgorithms() {
+	public List<Algorithm> getRejectAlgorithms() {
 		return this.itemDao.loadRejectAlgorithms();
 	}
 
 	@Override
-	public List<AlgorithmTest> getAlgorithmsByCommunity(Long comm_id) {
+	public List<Algorithm> getAlgorithmsByCommunity(Long comm_id) {
 		return this.itemDao.loadAlgorithmsByCommunity(comm_id);
 	}
 
 	@Override
-	public List<AlgorithmTest> getPublishAlgorithms(String published, Long comm_id) {
+	public List<Algorithm> getPublishAlgorithms(String published, Long comm_id) {
 		return this.itemDao.loadPublishAlgorithms(published, comm_id);
 	}
 
 	@Override
-	public List<AlgorithmTest> getRejectAlgorithms(Long comm_id) {
+	public List<Algorithm> getRejectAlgorithms(Long comm_id) {
 		return this.itemDao.loadRejectAlgorithms(comm_id);
 	}
 
 	@Override
-	public List<AlgorithmTest> getReviewAlgorithms(String status, Long comm_id) {
+	public List<Algorithm> getReviewAlgorithms(String status, Long comm_id) {
 		return this.itemDao.loadReviewAlgorithms(status, comm_id);
 	}
 
 	@Override
-	public List<AlgorithmTest> getTestingAlgorithms(String status, Long comm_id) {
+	public List<Algorithm> getTestingAlgorithms(String status, Long comm_id) {
 		return this.itemDao.loadTestingAlgorithms(status, comm_id);
 	}
 
