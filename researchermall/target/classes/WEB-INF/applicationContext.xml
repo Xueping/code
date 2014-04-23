@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans default-autowire="byName">
+      
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>classpath:config.properties</value>
+        </property>
+    </bean>
+       
+    <!-- DataSource for J2EE environments：mysql-->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://${serverName}:3306/${database}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+        <property name="maxActive" value="100"/>
+        <property name="maxIdle" value="30"/>
+        <property name="maxWait" value="1000"/>
+        <property name="defaultAutoCommit" value="true"/>
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="60"/>
+    </bean>
+    
+    <!-- DataSource for J2EE environments： SQL Server-->
+    <!--
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${driverClass}"/>
+        <property name="url" value="jdbc:sqlserver://${serverName};databaseName=${database};integratedSecurity=true;"/>
+        
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+        
+        <property name="maxActive" value="100"/>
+        <property name="maxIdle" value="30"/>
+        <property name="maxWait" value="1000"/>
+        <property name="defaultAutoCommit" value="true"/>
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="60"/>
+    </bean>
+	-->
+    <!-- Hibernate SessionFactory -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+        <property name="hibernateProperties">
+            <value>
+            	hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
+            </value>
+        </property>
+    </bean>
+    
+    <!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+                <prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+                <prop key="load*">PROPAGATION_REQUIRED,readOnly</prop>
+                <prop key="save*">PROPAGATION_REQUIRED</prop>
+                <prop key="add*">PROPAGATION_REQUIRED</prop>
+                <prop key="update*">PROPAGATION_REQUIRED</prop>
+                <prop key="remove*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <property name="beanNames">
+        	<list>
+        		<value>userService</value>
+        		<value>algService</value>
+        		<value>reviewService</value>
+        		<value>testingService</value>
+        		<value>algBKPService</value>
+        		<value>roleService</value>
+        		<value>communityService</value>
+        	</list>
+        </property>
+
+        <property name="interceptorNames">
+            <list>
+                <value>transactionInterceptor</value>               
+            </list>
+        </property>
+    </bean>   
+    <bean class="org.springframework.transaction.interceptor.TransactionAttributeSourceAdvisor">
+        <property name="transactionInterceptor" ref="transactionInterceptor"/>
+    </bean>
+    
+    <bean id="userDao" class="uts.codesale.dao.impl.UserDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="userService" class="uts.codesale.service.impl.UserServiceImpl">
+        <constructor-arg ref="userDao"/>
+    </bean> 
+    
+    <bean id="algDao" class="uts.codesale.dao.impl.AlgorithmDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="algService" class="uts.codesale.service.impl.AlgorithmServiceImpl">
+        <constructor-arg ref="algDao"/>
+    </bean> 
+    
+    <bean id="algBKPDao" class="uts.codesale.dao.impl.AlgorithmBKPDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="algBKPService" class="uts.codesale.service.impl.AlgorithmBKPServiceImpl">
+        <constructor-arg ref="algBKPDao"/>
+    </bean> 
+    
+    <bean id="reviewDao" class="uts.codesale.dao.impl.ReviewDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="reviewService" class="uts.codesale.service.impl.ReviewServiceImpl">
+        <constructor-arg ref="reviewDao"/>
+    </bean> 
+    
+    <bean id="testingDao" class="uts.codesale.dao.impl.TestingDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="testingService" class="uts.codesale.service.impl.TestingServiceImpl">
+        <constructor-arg ref="testingDao"/>
+    </bean>
+    
+    <bean id="roleDao" class="uts.codesale.dao.impl.RoleDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="roleService" class="uts.codesale.service.impl.RoleServiceImpl">
+        <constructor-arg ref="roleDao"/>
+    </bean>
+    
+    <bean id="communityDao" class="uts.codesale.dao.impl.CommunityDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="communityService" class="uts.codesale.service.impl.CommunityServiceImpl">
+        <constructor-arg ref="communityDao"/>
+    </bean>
+    
+    <bean id="register" class="uts.codesale.action.RegisterAction" singleton="false">
+       <property name="userService">
+           <ref bean="userService"/>
+       </property>
+    </bean>
+    
+    <bean id="loginAction" class="uts.codesale.action.LoginAction" singleton="false">
+       <property name="userService">
+           <ref bean="userService"/>
+       </property>
+    </bean>
+    
+    <bean id="userManager" class="uts.codesale.action.UserManagerAction" singleton="false">
+       <property name="userService">
+           <ref bean="userService"/>
+       </property>
+    </bean>
+    
+    <bean id="userManagerSubmit" class="uts.codesale.action.UserEditAction">
+       <property name="userService">
+           <ref bean="userService"/>
+       </property>
+    </bean>
+    
+    <bean id="addAndListAlgorithm" class="uts.codesale.action.AddOrListAlgorithmAction" singleton="false">
+       <property name="algorithmService">
+           <ref bean="algService"/>
+       </property>
+       <property name="userService">
+           <ref bean="userService"/>
+       </property>
+       <property name="algorithmBKPService">
+           <ref bean="algBKPService"/>
+       </property>
+       <property name="communityService">
+           <ref bean="communityService"/>
+       </property>
+       <property name="baseDir">
+            <value>${baseDir}</value>
+       </property>
+    </bean>
+    
+    <bean id="editAlgorithm" class="uts.codesale.action.EditOrDeleteAlgorithmAction" singleton="true">
+       <property name="algorithmService">
+           <ref bean="algService"/>
+       </property>
+       <property name="algorithmBKPService">
+           <ref bean="algBKPService"/>
+       </property>
+       <property name="userService">
+           <ref bean="userService"/>
+       </property>
+       <property name="communityService">
+           <ref bean="communityService"/>
+       </property>
+       <property name="baseDir">
+            <value>${baseDir}</value>
+       </property>
+    </bean>
+    
+    <bean id="reviewAction" class="uts.codesale.action.ReviewAction" singleton="false">
+       <property name="algorithmService">
+           <ref bean="algService"/>
+       </property>
+       <property name="userService">
+           <ref bean="userService"/>
+       </property>
+       <property name="reviewService">
+           <ref bean="reviewService"/>
+       </property>
+       <property name="baseDir">
+            <value>${baseDir}</value> 
+       </property>
+    </bean>
+    
+    <bean id="testingAction" class="uts.codesale.action.TestingAction" singleton="false">
+       <property name="algorithmService">
+           <ref bean="algService"/>
+       </property>
+       <property name="userService">
+           <ref bean="userService"/>
+       </property>
+       <property name="testingService">
+           <ref bean="testingService"/>
+       </property>
+       <property name="baseDir">
+           <!-- <value>/Users/xuepingpeng/Documents/projects/codesales</value>  -->
+           <value>${baseDir}</value>
+       </property>
+    </bean>
+    
+    <bean id="userDetails" class="uts.codesale.security.UserDetailsServiceImpl" singleton="false">
+       
+       <property name="userService">
+           <ref bean="userService"/>
+       </property>
+       <property name="roleService">
+           <ref bean="roleService"/>
+       </property>
+    </bean>
+    
+    <bean id="communityAction" class="uts.codesale.action.CommunityAction" singleton="false">
+       <property name="algorithmService">
+           <ref bean="algService"/>
+       </property>
+       <property name="userService">
+           <ref bean="userService"/>
+       </property>
+       <property name="roleService">
+           <ref bean="roleService"/>
+       </property>
+       <property name="communityService">
+           <ref bean="communityService"/>
+       </property>
+    </bean>
+    
+</beans>
