@@ -45,16 +45,16 @@ public class AlgorithmEntity implements Serializable {
     //----------------------------------------------------------------------
     // ENTITY DATA FIELDS 
     //----------------------------------------------------------------------    
-    @Column(name="Name", nullable=false, length=35)
+    @Column(name="Name", nullable=false, length=512)
     private String     name         ;
 
-    @Column(name="Desc", length=200)
+    @Column(name="Desc", length=1000)
     private String     desc         ;
 
     @Column(name="CategoryId", nullable=false)
     private Integer    categoryid   ;
 
-    @Column(name="Language", length=10)
+    @Column(name="Language", length=100)
     private String     language     ;
 
     @Column(name="Forsale")
@@ -105,7 +105,7 @@ public class AlgorithmEntity implements Serializable {
     private Integer    createby     ;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="CreateDate", nullable=false)
+    @Column(name="CreateDate", nullable=false, insertable=false)
     private Date       createdate   ;
 
     @Column(name="UpdateBy")

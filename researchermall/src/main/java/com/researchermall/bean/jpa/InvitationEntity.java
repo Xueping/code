@@ -63,7 +63,7 @@ public class InvitationEntity implements Serializable {
     private Integer    createby     ;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="CreateDate", nullable=false)
+    @Column(name="CreateDate", nullable=false, insertable=false)
     private Date       createdate   ;
 
     @Column(name="UpdateBy")

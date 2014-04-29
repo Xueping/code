@@ -44,22 +44,22 @@ public class UserEntity implements Serializable {
     //----------------------------------------------------------------------
     // ENTITY DATA FIELDS 
     //----------------------------------------------------------------------    
-    @Column(name="FirstName", nullable=false, length=20)
+    @Column(name="FirstName", nullable=false, length=50)
     private String     firstname    ;
 
-    @Column(name="LastName", nullable=false, length=20)
+    @Column(name="LastName", nullable=false, length=50)
     private String     lastname     ;
 
-    @Column(name="Country", nullable=false, length=3)
+    @Column(name="Country", nullable=false, length=50)
     private String     country      ;
 
     @Column(name="Title", length=10)
     private String     title        ;
 
-    @Column(name="Organization", length=35)
+    @Column(name="Organization", length=512)
     private String     organization ;
 
-    @Column(name="Speciality", length=100)
+    @Column(name="Speciality", length=512)
     private String     speciality   ;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -72,10 +72,10 @@ public class UserEntity implements Serializable {
     @Column(name="Phone", nullable=false, length=12)
     private String     phone        ;
 
-    @Column(name="UserName", nullable=false, length=20)
+    @Column(name="UserName", nullable=false, length=50)
     private String     username     ;
 
-    @Column(name="Password", nullable=false, length=40)
+    @Column(name="Password", nullable=false, length=50)
     private String     password     ;
 
     @Column(name="Enabled", nullable=false)
@@ -94,7 +94,7 @@ public class UserEntity implements Serializable {
     private Integer    createby     ;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="CreateDate", nullable=false)
+    @Column(name="CreateDate", nullable=false, insertable=false)
     private Date       createdate   ;
 
     @Column(name="UpdateBy")

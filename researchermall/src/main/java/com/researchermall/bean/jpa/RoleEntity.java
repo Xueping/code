@@ -44,10 +44,10 @@ public class RoleEntity implements Serializable {
     //----------------------------------------------------------------------
     // ENTITY DATA FIELDS 
     //----------------------------------------------------------------------    
-    @Column(name="RoleName", nullable=false, length=35)
+    @Column(name="RoleName", nullable=false, length=100)
     private String     rolename     ;
 
-    @Column(name="Desc", length=200)
+    @Column(name="Desc", length=5120)
     private String     desc         ;
 
     @Column(name="AllowLogin", nullable=false)
@@ -69,7 +69,7 @@ public class RoleEntity implements Serializable {
     private Integer    createby     ;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="CreateDate", nullable=false)
+    @Column(name="CreateDate", nullable=false, insertable=false)
     private Date       createdate   ;
 
     @Column(name="UpdateBy")

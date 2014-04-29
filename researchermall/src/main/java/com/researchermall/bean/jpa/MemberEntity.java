@@ -50,7 +50,7 @@ public class MemberEntity implements Serializable {
     @Column(name="UserId", nullable=false)
     private Integer    userid       ;
 
-    @Column(name="Role", nullable=false, length=5)
+    @Column(name="Role", nullable=false, length=50)
     private String     role         ;
 
     @Column(name="Confirmed", nullable=false)

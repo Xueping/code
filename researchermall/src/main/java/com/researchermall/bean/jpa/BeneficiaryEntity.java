@@ -51,7 +51,7 @@ public class BeneficiaryEntity implements Serializable {
     private Integer    userid       ;
 
     @Column(name="SharePercent", nullable=false)
-    private Integer    sharepercent ;
+    private float    sharepercent ;
 
     @Column(name="ListOrder", nullable=false)
     private Integer    listorder    ;
@@ -60,7 +60,7 @@ public class BeneficiaryEntity implements Serializable {
     private Integer    createby     ;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="CreateDate", nullable=false)
+    @Column(name="CreateDate", nullable=false, insertable=false)
     private Date       createdate   ;
 
     @Column(name="UpdateBy")
@@ -113,10 +113,10 @@ public class BeneficiaryEntity implements Serializable {
     }
 
     //--- DATABASE MAPPING : SharePercent ( INT ) 
-    public void setSharepercent( Integer sharepercent ) {
+    public void setSharepercent( float sharepercent ) {
         this.sharepercent = sharepercent;
     }
-    public Integer getSharepercent() {
+    public float getSharepercent() {
         return this.sharepercent;
     }
 

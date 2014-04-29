@@ -47,10 +47,10 @@ public class AlgorithmStatusHistoryEntity implements Serializable {
     @Column(name="AlgorId", nullable=false)
     private Integer    algorid      ;
 
-    @Column(name="OldStatus", nullable=false, length=2)
+    @Column(name="OldStatus", nullable=false, length=50)
     private String     oldstatus    ;
 
-    @Column(name="NewStatus", nullable=false, length=2)
+    @Column(name="NewStatus", nullable=false, length=50)
     private String     newstatus    ;
 
     @Column(name="MustNotified", nullable=false)
@@ -60,7 +60,7 @@ public class AlgorithmStatusHistoryEntity implements Serializable {
     private Integer    createby     ;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="CreateDate", nullable=false)
+    @Column(name="CreateDate", nullable=false , insertable=false)
     private Date       createdate   ;
 
     @Column(name="UpdateBy")

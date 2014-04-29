@@ -43,10 +43,10 @@ public class CategoryEntity implements Serializable {
     //----------------------------------------------------------------------
     // ENTITY DATA FIELDS 
     //----------------------------------------------------------------------    
-    @Column(name="Name", nullable=false, length=35)
+    @Column(name="Name", nullable=false, length=100)
     private String     name         ;
 
-    @Column(name="Desc", length=200)
+    @Column(name="Desc", length=1000)
     private String     desc         ;
 
     @Column(name="ParentId", nullable=false)

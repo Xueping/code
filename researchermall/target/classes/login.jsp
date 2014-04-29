@@ -28,11 +28,11 @@
 <div id="out_head"><img src="images/out_head.png" /></div>
 <div id="out_middle">
 		<center>
-		  	<table cellSpacing=0 cellPadding=0 width=500 align=center>
+		  	<table  width=500 align=center>
 			  <tbody>
 			   <tr>
 			    <td width=10>&nbsp;</td>
-			    <td vAlign=top colSpan=2 rowSpan=3 align=center>
+			    <td align=center>
 			    <font color="red" >
 			    <%
 			    	String error = request.getParameter("error");

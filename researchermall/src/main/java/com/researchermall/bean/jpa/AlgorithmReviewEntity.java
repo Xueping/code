@@ -50,7 +50,7 @@ public class AlgorithmReviewEntity implements Serializable {
     @Column(name="UserId", nullable=false)
     private Integer    userid       ;
 
-    @Column(name="Comments", length=250)
+    @Column(name="Comments", length=1000)
     private String     comments     ;
 
     @Lob
@@ -61,14 +61,14 @@ public class AlgorithmReviewEntity implements Serializable {
     @Column(name="ReviewDate")
     private Date       reviewdate   ;
 
-    @Column(name="Status", nullable=false, length=2)
+    @Column(name="Status", nullable=false, length=50)
     private String     status       ;
 
     @Column(name="CreateBy", nullable=false)
     private Integer    createby     ;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="CreateDate", nullable=false)
+    @Column(name="CreateDate", nullable=false, insertable=false)
     private Date       createdate   ;
 
     @Column(name="UpdateBy")

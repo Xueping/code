@@ -44,13 +44,13 @@ public class CommunityEntity implements Serializable {
     //----------------------------------------------------------------------
     // ENTITY DATA FIELDS 
     //----------------------------------------------------------------------    
-    @Column(name="Name", nullable=false, length=35)
+    @Column(name="Name", nullable=false, length=100)
     private String     name         ;
 
-    @Column(name="School", length=35)
+    @Column(name="School", length=100)
     private String     school       ;
 
-    @Column(name="Desc", length=100)
+    @Column(name="Desc", length=1000)
     private String     desc         ;
 
     @Column(name="Enabled", nullable=false)
@@ -63,7 +63,7 @@ public class CommunityEntity implements Serializable {
     private Integer    createby     ;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="CreateDate", nullable=false)
+    @Column(name="CreateDate", nullable=false, insertable=false)
     private Date       createdate   ;
 
     @Column(name="UpdateBy")
