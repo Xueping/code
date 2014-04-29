@@ -23,7 +23,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name="td_role", catalog="community" )
+@Table(name="td_role"/* , catalog="community"*/)
 // Define named queries here
 @NamedQueries ( {
   @NamedQuery ( name="RoleEntity.countAll", query="SELECT COUNT(x) FROM RoleEntity x" )
@@ -47,7 +47,7 @@ public class RoleEntity implements Serializable {
     @Column(name="RoleName", nullable=false, length=100)
     private String     rolename     ;
 
-    @Column(name="Desc", length=5120)
+    @Column(name="Description", length=512)
     private String     desc         ;
 
     @Column(name="AllowLogin", nullable=false)

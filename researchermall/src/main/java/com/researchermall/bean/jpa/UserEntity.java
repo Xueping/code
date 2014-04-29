@@ -23,7 +23,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name="td_user", catalog="community" )
+@Table(name="td_user"/* , catalog="community"*/)
 // Define named queries here
 @NamedQueries ( {
   @NamedQuery ( name="UserEntity.countAll", query="SELECT COUNT(x) FROM UserEntity x" )

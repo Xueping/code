@@ -24,7 +24,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name="td_algorithm", catalog="community" )
+@Table(name="td_algorithm" /* , catalog="community"*/ )
 // Define named queries here
 @NamedQueries ( {
   @NamedQuery ( name="AlgorithmEntity.countAll", query="SELECT COUNT(x) FROM AlgorithmEntity x" )
@@ -48,7 +48,7 @@ public class AlgorithmEntity implements Serializable {
     @Column(name="Name", nullable=false, length=512)
     private String     name         ;
 
-    @Column(name="Desc", length=1000)
+    @Column(name="Description", length=1000)
     private String     desc         ;
 
     @Column(name="CategoryId", nullable=false)

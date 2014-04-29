@@ -22,7 +22,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name="td_category", catalog="community" )
+@Table(name="td_category"/* , catalog="community"*/ )
 // Define named queries here
 @NamedQueries ( {
   @NamedQuery ( name="CategoryEntity.countAll", query="SELECT COUNT(x) FROM CategoryEntity x" )
@@ -46,7 +46,7 @@ public class CategoryEntity implements Serializable {
     @Column(name="Name", nullable=false, length=100)
     private String     name         ;
 
-    @Column(name="Desc", length=1000)
+    @Column(name="Description", length=1000)
     private String     desc         ;
 
     @Column(name="ParentId", nullable=false)

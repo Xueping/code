@@ -23,7 +23,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name="td_algorithm_status_history", catalog="community" )
+@Table(name="td_algorithm_status_history"/* , catalog="community"*/ )
 // Define named queries here
 @NamedQueries ( {
   @NamedQuery ( name="AlgorithmStatusHistoryEntity.countAll", query="SELECT COUNT(x) FROM AlgorithmStatusHistoryEntity x" )

@@ -18,5 +18,16 @@
 	<mapping class="uts.codesale.beans.Community" />
 	<mapping class="uts.codesale.beans.Role" />
 	
+	<mapping class="com.researchermall.bean.jpa.AlgorithmEntity" />
+	<mapping class="com.researchermall.bean.jpa.AlgorithmReviewEntity" />
+	<mapping class="com.researchermall.bean.jpa.AlgorithmStatusHistoryEntity" />
+	<mapping class="com.researchermall.bean.jpa.BeneficiaryEntity" />
+	<mapping class="com.researchermall.bean.jpa.CategoryEntity" />
+	<mapping class="com.researchermall.bean.jpa.CommunityEntity" />
+	<mapping class="com.researchermall.bean.jpa.InvitationEntity" />
+	<mapping class="com.researchermall.bean.jpa.MemberEntity" />
+	<mapping class="com.researchermall.bean.jpa.RoleEntity" />
+	<mapping class="com.researchermall.bean.jpa.UserEntity" />
+	<mapping class="com.researchermall.bean.jpa.UserRoleEntity" />
 </session-factory>
 </hibernate-configuration>

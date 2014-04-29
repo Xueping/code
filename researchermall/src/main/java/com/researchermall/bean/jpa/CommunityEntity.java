@@ -23,7 +23,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name="td_community", catalog="community" )
+@Table(name="td_community"/* , catalog="community"*/)
 // Define named queries here
 @NamedQueries ( {
   @NamedQuery ( name="CommunityEntity.countAll", query="SELECT COUNT(x) FROM CommunityEntity x" )
@@ -50,7 +50,7 @@ public class CommunityEntity implements Serializable {
     @Column(name="School", length=100)
     private String     school       ;
 
-    @Column(name="Desc", length=1000)
+    @Column(name="Description", length=1000)
     private String     desc         ;
 
     @Column(name="Enabled", nullable=false)
