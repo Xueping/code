@@ -4,7 +4,7 @@
  */
 // This Bean has a basic Primary Key (not composite) 
 
-package com.researchermall.bean.jpa;
+package com.researchermall.bean;
 
 import java.io.Serializable;
 
@@ -12,6 +12,7 @@ import java.io.Serializable;
 //import org.hibernate.validator.constraints.* ;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -109,6 +110,9 @@ public class UserEntity implements Serializable {
     //----------------------------------------------------------------------
     // ENTITY LINKS ( RELATIONSHIP )
     //----------------------------------------------------------------------
+    @OneToMany(mappedBy="user")
+    private List<ReviewEntity> reviews;
+    
 
     //----------------------------------------------------------------------
     // CONSTRUCTOR(S)
@@ -287,7 +291,15 @@ public class UserEntity implements Serializable {
     // GETTERS & SETTERS FOR LINKS
     //----------------------------------------------------------------------
 
-    //----------------------------------------------------------------------
+    public List<ReviewEntity> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<ReviewEntity> reviews) {
+		this.reviews = reviews;
+	}
+
+	//----------------------------------------------------------------------
     // toString METHOD
     //----------------------------------------------------------------------
     public String toString() { 

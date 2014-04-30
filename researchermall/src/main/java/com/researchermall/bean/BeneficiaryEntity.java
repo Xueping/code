@@ -4,7 +4,7 @@
  */
 // This Bean has a basic Primary Key (not composite) 
 
-package com.researchermall.bean.jpa;
+package com.researchermall.bean;
 
 import java.io.Serializable;
 

@@ -4,17 +4,27 @@
  */
 // This Bean has a basic Primary Key (not composite) 
 
-package com.researchermall.bean.jpa;
+package com.researchermall.bean;
 
 import java.io.Serializable;
-
-//import javax.validation.constraints.* ;
-//import org.hibernate.validator.constraints.* ;
-
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+//import javax.validation.constraints.* ;
+//import org.hibernate.validator.constraints.* ;
 
 /**
  * Persistent class for entity stored in table "td_algorithm"
@@ -120,6 +130,9 @@ public class AlgorithmEntity implements Serializable {
     //----------------------------------------------------------------------
     // ENTITY LINKS ( RELATIONSHIP )
     //----------------------------------------------------------------------
+    
+    @OneToMany(mappedBy="algorithm")
+    private List<ReviewEntity> reviews;
 
     //----------------------------------------------------------------------
     // CONSTRUCTOR(S)
@@ -322,6 +335,15 @@ public class AlgorithmEntity implements Serializable {
     // GETTERS & SETTERS FOR LINKS
     //----------------------------------------------------------------------
 
+	public List<ReviewEntity> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<ReviewEntity> reviews) {
+		this.reviews = reviews;
+	} 
+	
+	
     //----------------------------------------------------------------------
     // toString METHOD
     //----------------------------------------------------------------------
@@ -372,6 +394,7 @@ public class AlgorithmEntity implements Serializable {
         sb.append("|");
         sb.append(updatedate);
         return sb.toString(); 
-    } 
+    }
+
 
 }
