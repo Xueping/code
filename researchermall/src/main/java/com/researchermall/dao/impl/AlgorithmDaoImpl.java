@@ -2,11 +2,10 @@ package com.researchermall.dao.impl;
 
 import java.util.List;
 
-import com.researchermall.bean.jpa.AlgorithmEntity;
+import com.researchermall.bean.AlgorithmEntity;
 import com.researchermall.commons.GenericDaoImpl;
 import com.researchermall.dao.AlgorithmDao;
 import com.researchermall.exception.NotFoundException;
-
 
 
 public class AlgorithmDaoImpl extends GenericDaoImpl<AlgorithmEntity, Integer> implements
@@ -18,8 +17,11 @@ public class AlgorithmDaoImpl extends GenericDaoImpl<AlgorithmEntity, Integer> i
 
 	@Override
 	public List<AlgorithmEntity> loadAlgorithmsByCommunity(int comm_id) {
-		// TODO Auto-generated method stub
-		return null;
+		@SuppressWarnings("unchecked")
+		List<AlgorithmEntity> algs = (List<AlgorithmEntity>)getHibernateTemplate().find(
+				"from Algorithm where communityid= "+ comm_id+" order by createdate desc , id DESC ");
+		
+		return algs;
 	}
 
 	@Override

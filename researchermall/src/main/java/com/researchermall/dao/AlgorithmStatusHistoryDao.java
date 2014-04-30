@@ -2,7 +2,7 @@ package com.researchermall.dao;
 
 import java.util.List;
 
-import com.researchermall.bean.jpa.AlgorithmStatusHistoryEntity;
+import com.researchermall.bean.AlgorithmStatusHistoryEntity;
 import com.researchermall.commons.IGenericDao;
 
 

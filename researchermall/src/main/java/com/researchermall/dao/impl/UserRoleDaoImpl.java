@@ -1,7 +1,7 @@
 package com.researchermall.dao.impl;
 
 
-import com.researchermall.bean.jpa.UserRoleEntity;
+import com.researchermall.bean.UserRoleEntity;
 import com.researchermall.commons.GenericDaoImpl;
 import com.researchermall.dao.UserRoleDao;
 

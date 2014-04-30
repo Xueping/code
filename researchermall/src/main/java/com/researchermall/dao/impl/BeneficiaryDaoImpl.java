@@ -3,7 +3,7 @@ package com.researchermall.dao.impl;
 
 import java.util.List;
 
-import com.researchermall.bean.jpa.BeneficiaryEntity;
+import com.researchermall.bean.BeneficiaryEntity;
 import com.researchermall.commons.GenericDaoImpl;
 import com.researchermall.dao.BeneficiaryDao;
 

@@ -1,7 +1,7 @@
 package com.researchermall.dao.impl;
 
 
-import com.researchermall.bean.jpa.CommunityEntity;
+import com.researchermall.bean.CommunityEntity;
 import com.researchermall.commons.GenericDaoImpl;
 import com.researchermall.dao.CommunityDao;
 

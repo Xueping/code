@@ -1,7 +1,7 @@
 package com.researchermall.dao.impl;
 
 
-import com.researchermall.bean.jpa.CategoryEntity;
+import com.researchermall.bean.CategoryEntity;
 import com.researchermall.commons.GenericDaoImpl;
 import com.researchermall.dao.CategoryDao;
 

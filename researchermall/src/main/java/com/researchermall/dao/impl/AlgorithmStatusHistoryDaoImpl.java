@@ -3,7 +3,7 @@ package com.researchermall.dao.impl;
 
 import java.util.List;
 
-import com.researchermall.bean.jpa.AlgorithmStatusHistoryEntity;
+import com.researchermall.bean.AlgorithmStatusHistoryEntity;
 import com.researchermall.commons.GenericDaoImpl;
 import com.researchermall.dao.AlgorithmStatusHistoryDao;
 

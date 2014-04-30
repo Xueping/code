@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 
-import com.researchermall.bean.jpa.AlgorithmEntity;
-import com.researchermall.bean.jpa.AlgorithmReviewEntity;
-import com.researchermall.bean.jpa.UserEntity;
+import com.researchermall.bean.AlgorithmEntity;
+import com.researchermall.bean.ReviewEntity;
+import com.researchermall.bean.UserEntity;
 import com.researchermall.commons.IGenericDao;
 
 
@@ -22,6 +22,6 @@ public interface UserDao extends IGenericDao<UserEntity, Integer> {
 	
 	public List<AlgorithmEntity> loadAlgorithmsByUser(int user_id) ;
 	
-	public List<AlgorithmReviewEntity> loadReviewsAlgorithmsByUser(int user_id);
+	public List<ReviewEntity> loadReviewsAlgorithmsByUser(int user_id);
 	
 }

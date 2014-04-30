@@ -2,7 +2,7 @@ package com.researchermall.dao;
 
 import java.util.List;
 
-import com.researchermall.bean.jpa.AlgorithmEntity;
+import com.researchermall.bean.AlgorithmEntity;
 import com.researchermall.commons.IGenericDao;
 import com.researchermall.exception.NotFoundException;
 

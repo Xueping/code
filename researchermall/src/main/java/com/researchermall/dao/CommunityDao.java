@@ -1,6 +1,6 @@
 package com.researchermall.dao;
 
-import com.researchermall.bean.jpa.CommunityEntity;
+import com.researchermall.bean.CommunityEntity;
 import com.researchermall.commons.IGenericDao;
 
 

@@ -3,7 +3,7 @@ package com.researchermall.dao.impl;
 
 import java.util.List;
 
-import com.researchermall.bean.jpa.MemberEntity;
+import com.researchermall.bean.MemberEntity;
 import com.researchermall.commons.GenericDaoImpl;
 import com.researchermall.dao.MemberDao;
 

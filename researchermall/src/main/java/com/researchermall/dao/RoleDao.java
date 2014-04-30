@@ -2,7 +2,7 @@ package com.researchermall.dao;
 
 import java.util.List;
 
-import com.researchermall.bean.jpa.RoleEntity;
+import com.researchermall.bean.RoleEntity;
 import com.researchermall.commons.IGenericDao;
 
 

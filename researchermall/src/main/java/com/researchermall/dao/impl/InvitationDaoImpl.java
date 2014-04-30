@@ -1,7 +1,7 @@
 package com.researchermall.dao.impl;
 
 
-import com.researchermall.bean.jpa.InvitationEntity;
+import com.researchermall.bean.InvitationEntity;
 import com.researchermall.commons.GenericDaoImpl;
 import com.researchermall.dao.InvitationDao;
 

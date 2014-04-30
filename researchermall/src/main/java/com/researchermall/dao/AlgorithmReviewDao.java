@@ -1,11 +1,11 @@
 package com.researchermall.dao;
 
-import com.researchermall.bean.jpa.AlgorithmReviewEntity;
+import com.researchermall.bean.ReviewEntity;
 import com.researchermall.commons.IGenericDao;
 
 
 
-public interface AlgorithmReviewDao extends IGenericDao<AlgorithmReviewEntity, Integer> {
+public interface AlgorithmReviewDao extends IGenericDao<ReviewEntity, Integer> {
 
 
 }
