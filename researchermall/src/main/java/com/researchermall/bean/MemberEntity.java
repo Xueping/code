@@ -6,14 +6,21 @@
 
 package com.researchermall.bean;
 
-import java.io.Serializable;
-
-//import javax.validation.constraints.* ;
-//import org.hibernate.validator.constraints.* ;
-
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+//import javax.validation.constraints.* ;
+//import org.hibernate.validator.constraints.* ;
 
 /**
  * Persistent class for entity stored in table "td_member"
@@ -24,30 +31,20 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="td_member"/* , catalog="community"*/)
+@IdClass(MemberId.class)
 // Define named queries here
 @NamedQueries ( {
   @NamedQuery ( name="MemberEntity.countAll", query="SELECT COUNT(x) FROM MemberEntity x" )
 } )
-public class MemberEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    //----------------------------------------------------------------------
-    // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
-    //----------------------------------------------------------------------
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="ID", nullable=false)
-    private Integer    id           ;
-
+public class MemberEntity{
 
     //----------------------------------------------------------------------
     // ENTITY DATA FIELDS 
     //----------------------------------------------------------------------    
-    @Column(name="CommunityId", nullable=false)
+    @Id
     private Integer    communityid  ;
 
-    @Column(name="UserId", nullable=false)
+    @Id
     private Integer    userid       ;
 
     @Column(name="Role", nullable=false, length=50)
@@ -79,22 +76,20 @@ public class MemberEntity implements Serializable {
     //----------------------------------------------------------------------
     // ENTITY LINKS ( RELATIONSHIP )
     //----------------------------------------------------------------------
+    @ManyToOne
+    @JoinColumn(name = "userid", updatable = false, insertable = false, referencedColumnName = "id")
+    private UserEntity user;
+    
+    @ManyToOne
+    @JoinColumn(name = "communityid", updatable = false, insertable = false, referencedColumnName = "id")
+    private CommunityEntity community;
+    
 
     //----------------------------------------------------------------------
     // CONSTRUCTOR(S)
     //----------------------------------------------------------------------
     public MemberEntity() {
 		super();
-    }
-    
-    //----------------------------------------------------------------------
-    // GETTER & SETTER FOR THE KEY FIELD
-    //----------------------------------------------------------------------
-    public void setId( Integer id ) {
-        this.id = id ;
-    }
-    public Integer getId() {
-        return this.id;
     }
 
     //----------------------------------------------------------------------
@@ -182,9 +177,6 @@ public class MemberEntity implements Serializable {
     //----------------------------------------------------------------------
     public String toString() { 
         StringBuffer sb = new StringBuffer(); 
-        sb.append("["); 
-        sb.append(id);
-        sb.append("]:"); 
         sb.append(communityid);
         sb.append("|");
         sb.append(userid);

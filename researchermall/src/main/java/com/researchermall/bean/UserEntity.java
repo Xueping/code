@@ -7,14 +7,22 @@
 package com.researchermall.bean;
 
 import java.io.Serializable;
-
-//import javax.validation.constraints.* ;
-//import org.hibernate.validator.constraints.* ;
-
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+//import javax.validation.constraints.* ;
+//import org.hibernate.validator.constraints.* ;
 
 /**
  * Persistent class for entity stored in table "td_user"
@@ -113,6 +121,11 @@ public class UserEntity implements Serializable {
     @OneToMany(mappedBy="user")
     private List<ReviewEntity> reviews;
     
+    @OneToMany(mappedBy="user")
+    private List<BeneficiaryEntity> beneficiaries;
+    
+    @OneToMany(mappedBy="user")
+    private List<MemberEntity> members;
 
     //----------------------------------------------------------------------
     // CONSTRUCTOR(S)
@@ -297,6 +310,22 @@ public class UserEntity implements Serializable {
 
 	public void setReviews(List<ReviewEntity> reviews) {
 		this.reviews = reviews;
+	}
+
+	public List<BeneficiaryEntity> getBeneficiaries() {
+		return beneficiaries;
+	}
+
+	public void setBeneficiaries(List<BeneficiaryEntity> beneficiaries) {
+		this.beneficiaries = beneficiaries;
+	}
+
+	public List<MemberEntity> getMembers() {
+		return members;
+	}
+
+	public void setMembers(List<MemberEntity> members) {
+		this.members = members;
 	}
 
 	//----------------------------------------------------------------------

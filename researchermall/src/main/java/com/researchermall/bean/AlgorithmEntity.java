@@ -133,6 +133,9 @@ public class AlgorithmEntity implements Serializable {
     
     @OneToMany(mappedBy="algorithm")
     private List<ReviewEntity> reviews;
+    
+    @OneToMany(mappedBy="algorithm")
+    private List<BeneficiaryEntity> beneficiaries;
 
     //----------------------------------------------------------------------
     // CONSTRUCTOR(S)
@@ -344,7 +347,15 @@ public class AlgorithmEntity implements Serializable {
 	} 
 	
 	
-    //----------------------------------------------------------------------
+    public List<BeneficiaryEntity> getBeneficiaries() {
+		return beneficiaries;
+	}
+
+	public void setBeneficiaries(List<BeneficiaryEntity> beneficiaries) {
+		this.beneficiaries = beneficiaries;
+	}
+
+	//----------------------------------------------------------------------
     // toString METHOD
     //----------------------------------------------------------------------
     public String toString() { 

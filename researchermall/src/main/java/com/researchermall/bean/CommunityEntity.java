@@ -12,6 +12,7 @@ import java.io.Serializable;
 //import org.hibernate.validator.constraints.* ;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -78,6 +79,8 @@ public class CommunityEntity implements Serializable {
     //----------------------------------------------------------------------
     // ENTITY LINKS ( RELATIONSHIP )
     //----------------------------------------------------------------------
+    @OneToMany(mappedBy="community")
+    private List<MemberEntity> members;
 
     //----------------------------------------------------------------------
     // CONSTRUCTOR(S)
@@ -176,7 +179,15 @@ public class CommunityEntity implements Serializable {
     // GETTERS & SETTERS FOR LINKS
     //----------------------------------------------------------------------
 
-    //----------------------------------------------------------------------
+    public List<MemberEntity> getMembers() {
+		return members;
+	}
+
+	public void setMembers(List<MemberEntity> members) {
+		this.members = members;
+	}
+
+	//----------------------------------------------------------------------
     // toString METHOD
     //----------------------------------------------------------------------
     public String toString() { 

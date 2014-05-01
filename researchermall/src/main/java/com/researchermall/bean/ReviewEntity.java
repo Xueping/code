@@ -64,12 +64,10 @@ public class ReviewEntity{
     // ENTITY LINKS ( RELATIONSHIP )
     //----------------------------------------------------------------------
     @ManyToOne
-//    @PrimaryKeyJoinColumn(name="userid", referencedColumnName="ID")
     @JoinColumn(name = "userid", updatable = false, insertable = false, referencedColumnName = "id")
     private UserEntity user;
     
     @ManyToOne
-//    @PrimaryKeyJoinColumn(name="algorid", referencedColumnName="ID")
     @JoinColumn(name = "algorid", updatable = false, insertable = false, referencedColumnName = "id")
     private AlgorithmEntity algorithm;
     
