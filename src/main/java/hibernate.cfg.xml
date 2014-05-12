@@ -1,0 +1,33 @@
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+<session-factory>
+	<property name="show_sql">true</property>
+	<property name="connection.useUnicode">true</property>
+	<property name="connection.characterEncoding">UTF-8</property>
+	<property name="hbm2ddl.auto">update</property>
+	
+	<mapping class="uts.codesale.beans.User" />
+	<mapping class="uts.codesale.beans.Algorithm" />
+	<mapping class="uts.codesale.beans.AlgorithmBKP" />
+	<mapping class="uts.codesale.beans.Lookup" />
+	<mapping class="uts.codesale.beans.Review" />
+	<mapping class="uts.codesale.beans.Testing" />
+	<mapping class="uts.codesale.beans.Community" />
+	<mapping class="uts.codesale.beans.Role" />
+	
+	<mapping class="com.researchermall.bean.AlgorithmEntity" />
+	<mapping class="com.researchermall.bean.ReviewEntity" />
+	<mapping class="com.researchermall.bean.AlgorithmStatusHistoryEntity" />
+	<mapping class="com.researchermall.bean.BeneficiaryEntity" />
+	<mapping class="com.researchermall.bean.CategoryEntity" />
+	<mapping class="com.researchermall.bean.CommunityEntity" />
+	<mapping class="com.researchermall.bean.InvitationEntity" />
+	<mapping class="com.researchermall.bean.MemberEntity" />
+	<mapping class="com.researchermall.bean.RoleEntity" />
+	<mapping class="com.researchermall.bean.UserEntity" />
+	<mapping class="com.researchermall.bean.UserRoleEntity" />
+</session-factory>
+</hibernate-configuration>
